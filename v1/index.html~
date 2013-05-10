@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Here be Peter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/pc.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                  <li><a href="#home">Back to Top</a></li>
+                  <li><a href="#projects">Projects</a></li>
+                  <li><a href="#research">Research</a></li>
+                  <li><a href="#resume">Resume</a></li>
+                </ul>
+                <ul class ="nav pull-right">
+                  <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+ 
+    <div class="container">
+        <div class="div1000">
+            <div class="row">
+                <div class="span11">
+                    <div class="hero-unit">
+                        <a id="home" class="anchortop">&nbsp</a>
+                        <div class="row">
+                            <div class="span2">
+                                <img class="photo" src="assets/img/petercheng.jpg" width="100%" height="100%">
+                            </div>
+                            <div class="span6 offset1">
+                                
+                                <h3>Peter Cheng</h3>
+                                <hr>
+                                <p>I'm a graduate student at UC Berkeley studying Computer Science. I completed my undergrad in EECS at Cal as well, and am in the 5th-year Master's program. I perform computer vision research in the <a href="http://www-video.eecs.berkeley.edu/">Video and Image Processing Lab</a>.
+                                </p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div1000">
+            <a id="projects" class="anchorpad">&nbsp</a>
+            <hr>
+            <h2>recent projects</h2>
+            <div class="row">
+                <div class="span8 offset1">
+                    <b>My <a href="https://github.com/petercheng00">GitHub</a></b>
+                </div>
+            </div>
+            <BR>
+            <div class="row">
+                <div class="span6">
+                    <b> Remoticon </b><br>
+                    <a href="assets/img/remoticon.png"><img src="assets/img/remoticon.png" width="50%" height="50%"></a>
+                </div>
+                <div class="span6">
+                    
+                </div>
+            </div>
+            <BR><BR><BR>
+            <div class="row">
+                <div class="span6">
+                    <b> BTMesh </b> <br>
+                    <a href = "assets/img/BTMesh.png"><img src="assets/img/BTMesh.png" width="50%" height="50%"></a>
+                </div>
+                <div class="span6">
+                    
+                </div>
+            </div>
+            <BR><BR><BR>
+            <div class="row">
+                <div class="span6">
+                    <b> BOSS </b> <br>
+                    <a href = "assets/img/BOSS.png"><img src="assets/img/BOSS.png" width="50%" height="50%"></a>
+                </div>
+                <div class="span6">
+                    
+                </div>
+            </div>            
+            
+        </div>
+        <div class="div1000">
+            <a id="research" class="anchorpad">&nbsp</a>
+            <hr>
+            <h2>research</h2>
+            <div class="row">
+                <div class="span8 offset2">
+                    <b><a href="http://www-video.eecs.berkeley.edu/papers/pcheng/paper.pdf">My Paper</a> from the <a href="http://www-video.eecs.berkeley.edu/">Video and Image Processing Lab</a></b>
+                </div>
+            </div>
+            <BR><BR>
+            <div class="row">
+                <div class="span11">
+                    <div class="hero-unit">
+                        <div class="row">
+                            <div class="span3">
+                                <BR><BR><a href="assets/img/research/pointcloud.png"><img src="assets/img/research/pointcloud.png"></a>
+                            </div>
+                            <div class="span3" style="display:table-cell; vertical-align:middle; text-align:center">
+                                <a href="assets/img/research/pipelineimages.png"><img src="assets/img/research/pipelineimages.png" width="90%" height="90%"></a>
+                            </div>
+                            <div class="span3">
+                                <BR><a href="assets/img/research/fullmodel.png"><img src="assets/img/research/fullmodel.png"></a>
+                            </div>
+                        </div>
+                   
+                        <BR><BR>
+                        
+                 
+                        <div class="row">
+                            <div class="span8 offset1">
+                                My current work is on automated texture-mapping of indoor areas, specifically focusing on cases where source images have a high amount of localization uncertainty. This is currently accomplished by a combination of standard feature-detection and transformation algorithms, followed by intelligent image selection and compositing. In the future I aim to generalize my method to larger, more complex models, and perform image adjustments based on geometry information as well.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div1000">
+            <a id="resume" class="anchorpad">&nbsp</a>
+            <hr>
+            <h2>resume</h2>
+            &nbsp&nbsp&nbsp&nbsp<a href="assets/docs/resume.pdf">Click Here for Full Resume</a>
+            <BR><BR>
+            <div class="row">
+                <div class="span8">
+                    <div class="hero-unit">
+                        <h4>UC Berkeley</h4>
+                        <b>MS Computer Science (2012-2013)</b><br />
+                        -Interests in Computer Vision, Mobile Technologies, Entrepreneurship<br /><br />
+                        <b>Haas School of Business (2012)</b><br />
+                        -Management of Technology Program<br /><BR>
+                        <b>BS Electrical Engineering and Computer Science (2009-2012)</b><br />
+                        -GPA 3.835 with High Honors<br /><br />
+                        <h4>Research</h4>
+                        <b>Video and Image Processing Lab: Dr. Avideh Zakhor (2011 - present)</b><br />
+                        -Work on generating textured 3D models using an automated data acquisition system.<br />
+                        -Focus on feature detection and image mosaicing<br />
+                        -To be presented at SPIE 2013 Conference<br />
+            <br /><BR>
+                        <b>Vision Sciences Lab: Dr. Christine Wildsoet (2011)</b><br />
+                        -Analyzed and interpreted data from wearable eye-tracking devices.<br />
+                        -Wrote scripts to search for correlations and generate graphical output.<br />
+            <br />
+                        <h4>Work Experience</h4>
+                        <b>UC Berkeley Student Affairs IT: Lead Desktop Engineer (2011-2012)</b><br />
+                        -Hired and led a team to script patches and create virtual software packages.<br />
+                        -Represented students in campus negotiations with software vendors.<br />
+            <br />
+                        <b>Arista Networks: Software Development Intern (2011)</b><br />
+                        -Worked on the DHCP Relay Agent for Arista Extensible OS.<br />
+                        -Implemented multiple packet handling options and debugging utilities.<br />
+            <br />
+
+                        <h4>Technical Experience</h4>
+                        <b>Programming</b><br />
+                        -Public Projects: https://github.com/petercheng00<br />
+                        -Languages: C++, Java, Python, C, Ruby, Matlab <br />
+                        -Platforms and Frameworks: Android, OpenCV, Ruby on Rails<br />
+                    </div>
+                </div>
+            
+            </div>
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        <div class="div1000">
+            <a id="contact" class="anchorpad">&nbsp</a>
+            <hr>
+            <h2>contact</h2>
+            pcheng at eecs.berkeley.edu
+            
+            
+            <hr>
+        </div>
+
+    
+    </div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery-1.8.2.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    
+    
+        
+    <script type="text/javascript">
+    $(document).ready(function(){
+                    $(".contactLink").click(function(){
+                        if ($("#contactForm").is(":hidden")){
+                            $("#contactForm").slideDown("slow");
+                        }
+                        else{
+                            $("#contactForm").slideUp("slow");
+                        }
+                    });
+                });
+                function closeForm(){
+                    $("#messageSent").show("slow");
+                    setTimeout('$("#messageSent").hide();$("#contactForm").slideUp("slow")', 2000);
+               }
+
+    $(document).ready(function() {
+      function filterPath(string) {
+        return string
+          .replace(/^\//,'')
+          .replace(/(index|default).[a-zA-Z]{3,4}$/,'')
+          .replace(/\/$/,'');
+      }
+      $('a[href*=#]').each(function() {
+        if ( filterPath(location.pathname) == filterPath(this.pathname)
+        && location.hostname == this.hostname
+        && this.hash.replace(/#/,'') ) {
+          var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+          var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+           if ($target) {
+             var targetOffset = $target.offset().top;
+             $(this).click(function() {
+               $('html, body').animate({scrollTop: targetOffset}, 500);
+               var d = document.createElement("div");
+            d.style.height = "101%";
+            d.style.overflow = "hidden";
+            document.body.appendChild(d);
+            window.scrollTo(0,scrollToM);
+            setTimeout(function() {
+            d.parentNode.removeChild(d);
+                }, 10);
+               return false;
+             });
+          }
+        }
+      });
+    });
+    /*! Smooth Scroll - v1.4.5 - 2012-07-22
+    * Copyright (c) 2012 Karl Swedberg; Licensed MIT, GPL */
+    </script>
+  </body>
+</html>
