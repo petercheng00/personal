@@ -1,6 +1,16 @@
 body {
-    overflow-y:hidden;
+    background-color:#888888;
 }
+
+hr{
+    border-top: 1px solid black;
+}
+
+.bodycontent {
+    padding:70px;
+    background-color:#eeeeee;
+}
+
 
 .center {
     float: none;
