@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator"
+    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+    <meta charset="utf-8" />
+    <title>Here be Peter</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="assets/css/pc.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	    <span class="sr-only">Toggle navigation</span>
+	  </button>
+	</div>
+	<div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav">
+	    <li>
+	      <a href="index.html">Home</a>
+	    </li>
+	    <li>
+	      <a href="projects.html">Projects</a>
+	    </li>
+	    <li>
+	      <a href="research.html">Research</a>
+	    </li>
+	    <li class="active">
+	      <a href="music.html">Music</a>
+	    </li>
+	  </ul>
+	</div>
+	<!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+      <br/>
+      <div class="row">
+	<div class="col-md-10 center">
+	  <div class="col-md-6">
+	    <h2>
+	      Indoor Texture Mapping
+	    </h2>
+	    <br/>
+	    <p>I spent 3 years at the <a href="http://www-video.eecs.berkeley.edu">Video and Image Processing Lab</a>, working on automatically generating <a href="http://www-video.eecs.berkeley.edu/research/indoor/">3d models of indoor environments</a>. This was accomplished by walking around a multitude of indoor locations while wearing a backpack-mounted sensor suite for data acquisition. My focus was on efficient texture mapping given noisy camera poses and geometry. A few samples of the types of models I generated are on this page.
+	    </p>
+	    <p>My work was presented at IS&T/SPIE 2013 and 2014, and was the basis of my <a href="http://www.eecs.berkeley.edu/Pubs/TechRpts/2013/EECS-2013-231.html">Master's thesis</a>.
+	    </p>
+	  </div>
+	  <div class="col-md-3 col-xs-3">
+	    <a href="assets/img/research/swarm.png" data-lightbox="research" title="Swarm Lab, Cory Hall"><img src="assets/img/research/swarm.png" width="100%"/></a>
+	    <center>
+	      Swarm Lab, Cory Hall
+	    </center>
+	  </div>
+	  <div class="col-md-3 col-xs-3">
+	    <a href="assets/img/research/cory3.png" data-lightbox="research" title="Hallways 1-3, Cory Hall"><img src="assets/img/research/cory3.png" width="100%"/></a>
+	    <center>
+	      Hallways 1-3, Cory Hall
+	    </center>
+	  </div>
+	  <div class="col-md-3 col-xs-3">
+	    <a href="assets/img/research/houston.png" data-lightbox="research" title="Marriott Houston Hotel"><img src="assets/img/research/houston.png" width="100%"/></a>
+	    <center>
+	      Marriott Houston Hotel
+	    </center>
+	  </div>
+	  <div class="col-md-3 col-xs-3">
+	    <a href="assets/img/research/bhh.png" data-lightbox="research" title="Beverly Hill Hotel"><img src="assets/img/research/bhh.png" width="100%"/></a>
+	    <center>
+	      Beverly Hills Hotel
+	    </center>
+	  </div>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-md-10 center">
+	  <div class="col-md-6">
+	    <h2>
+	      Myopia/Sunlight Research
+	    </h2>
+	  <br/>
+	    <p>I also spent 1 year at the <a href="http://wildsoetlab.berkeley.edu/index.php?title=Wildsoet_Lab">Wildoset Vision Sciences Lab</a>, where I performed analysis on eye shape (leading to myopia) and sunlight, attempting to find a correlation between the two. This  was accomplished via a head-mounted eye-measuring device and light sensor.
+	    </p>
+	    <p>Unfortunately, <a href="http://www.abstractsonline.com/Plan/ViewAbstract.aspx?mID=2684&sKey=e1db56e5-920f-4982-94b1-7a0bca6e77e5&ckey=c4ad825c-6ae4-40fe-8aac-e90e173a38fa&mKey=%7b6F224A2D-AF6A-4533-8BBB-6A8D7B26EDB3%7d">the results</a> were ultimately inconclusive.
+	    </p>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/lightbox-2.6.min.js"></script>
+  </body>
+</html>

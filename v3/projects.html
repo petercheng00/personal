@@ -11,85 +11,157 @@
     <link href="assets/css/pc.css" rel="stylesheet" />
   </head>
   <body>
-  <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-        </button>
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	    <span class="sr-only">Toggle navigation</span>
+	  </button>
+	</div>
+	<div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav">
+	    <li>
+	      <a href="index.html">Home</a>
+	    </li>
+	    <li class="active">
+	      <a href="projects.html">Projects</a>
+	    </li>
+	    <li>
+	      <a href="research.html">Research</a>
+	    </li>
+	    <li>
+	      <a href="music.html">Music</a>
+	    </li>
+	  </ul>
+	</div>
+	<!--/.nav-collapse -->
       </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li class="active">
-            <a href="projects.html">Projects</a>
-          </li>
-          <li>
-            <a href="research.html">Research</a>
-          </li>
-          <li>
-            <a href="music.html">Music</a>
-          </li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 center">
+    <div class="container">
+      <div class="row">
+	<div class="col-md-12">
 	<h2>
 	  Personal Projects
 	</h2>
 	<p>
 	  A selection of random projects I've worked on in my own time.
 	</p>
+	<div id ="personalprojects" class="js-masonry">
+	  <div class="project">
+	    <div class="col-md-6 projecttext">
+	      <div class="projtitle">
+		AutoPing
+	      </div>
+	      <div class="projsubtitle">
+		<a href="https://play.google.com/store/apps/details?id=com.pc.autoping">Google Play</a>
+	      </div>
+	      <div class="projdescr">
+		AutoPing is a pretty basic utility app. It simply repeatedly pings a server and lets you check if your internet is actually lagging or something else is going on - pretty handy for all the places I've lived where internet connection is terribly unreliable.
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-md-offset-1 projimage">
+	      <a href="assests/img/projects/autoping.png" data-lightbox="projects" title="AutoPing"><img src="assets/img/projects/autoping.png" width="75%"/></a>
+	    </div>
+	  </div>
+	</div>
 	<h2>
-	  Class-related Projects
+	  Berkeley Projects
 	</h2>
 	<p>
 	  Some of my favorite projects from my last 2 years at Berkeley.
 	</p>
-	<div class="row">
-	  <div class="col-md-6 border">
-	    <div class="col-md-6">
-	      CS294: Interactive Device Design
+	<div id ="berkeleyprojects" class="js-masonry">
+	  <div class="col-md-6 project">
+	    <div class="col-md-6 projecttext">
+              <div class="projtitle">
+		Remoticon
+              </div>
+              <div class="projsubtitle">
+		CS294: Interactive Device Design
+              </div>
+	      <div class="projdescr">
+		<p>
+		  Remoticon is a fully-working hardware prototype coupled with an Android app. It allows the user to control their tv via smartphone, while storing favorites, setting reminders for showtimes, and receiving suggestions.
+		</p>
+		<p>
+		  The case and internal PCB were entirely designed and printed by us, and the remote control IR frequencies were tuned to work on popular TV brands.
+		</p>
+	      </div>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-md-6 projimage">
 	      <a href="assets/img/projects/remoticon.png" data-lightbox="projects" title="Remoticon"><img src="assets/img/projects/th-remoticon.png" width="100%"/></a>
 	    </div>
 	  </div>
-	  <div class="col-md-6 border">
-	    <div class="col-md-6">
-	      CS270: Combinatorial Algorithms and Data Structures
+	  <div class="col-md-6 project">
+	    <div class="col-md-6 projecttext">
+	      <div class="projtitle">
+		Hungarian Matching Visualizer
+	      </div>
+	      <div class="projsubtitle">
+		CS270: Combinatorial Algorithms and Data Structures
+	      </div>
+	      <div class="projdescr">
+		<p>
+		The Hungarian Matching Algorithm is a method of matching a bipartite set that results in optimal overall score across chosen connections.</p>
+		<p><a href="matching.html">Click here to try it out!</a></p>
+	      </div>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-md-6 projimage">
 	      <a href="assets/img/projects/matching.png" data-lightbox="projects" title="Hungarian Matching"><img src="assets/img/projects/matching.png" width="100%"/></a>
 	    </div>
 	  </div>
-	  <div class="col-md-6 border">
-	    <div class="col-md-6">
-	      IEOR190E: Mobile Entrepreneurship
+	  <div class="col-md-6 project">
+	    <div class="col-md-6 projecttext">
+	      <div class="projtitle">
+		Nostalgia
+	      </div>
+	      <div class="projsubtitle">
+		IEOR190E: Mobile Entrepreneurship
+	      </div>
+	      <div class="projdescr">
+		<p>
+		  Nostalgia was a startup/app idea to reign in the older, tablet-using population, by reminding them of their youth and offering an attractive way to connect with their memories.</p>
+		<p>Many prototypes were iterated upon, pitches were given, and rock songs were played, but in the end this project is just a memory.</p>
+	      </div>
 	    </div>
-	    <div class="col-md-6">
-	      <a href="assets/img/projects/nostalgia.png" data-lightbox="projects" title="Nostalgia"><img src="assets/img/projects/nostalgia.png" width="100%"/></a>
+	    <div class="col-md-6 projimage">
+	      <a href="assets/img/projects/nostalgia.png" data-lightbox="projects" title="Nostalgia"><img src="assets/img/projects/nostalgia.png" width="100%" style="margin-top:30px"/></a>
 	    </div>
 	  </div>
-	  <div class="col-md-6 border">
-	    <div class="col-md-6">
-	      CS194: Mobile Device Development
+	  <div class="col-md-6 project">
+	    <div class="col-md-6 projecttext">
+	      <div class="projtitle">
+		BTMesh
+	      </div>
+	      <div class="projsubtitle">
+		CS194: Mobile Device Development
+	      </div>
+	      <div class="projdescr">
+		<p>
+		This was my first serious foray into mobile development, and it was an ambitious one.
+		</p>
+		<p>
+		  We created an app/framework with the ability to link together phones into a giant mesh network. The final prototype involved actual multi-node data transfer, a somewhat self-repairing mesh, and a pretty neat network visualizer
+		</p>
+	      </div> 
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-md-6 projimage">
 	      <a href="assets/img/projects/BTMesh.png" data-lightbox="projects" title="BTMesh"><img src="assets/img/projects/th-BTMesh.png" width="100%"/></a>
 	    </div>
 	  </div>
-	  <div class="col-md-6 border">
-	    <div class="col-md-6">
-	      CS169: Software Engineering
+	  <div class="col-md-6 project">
+	    <div class="col-md-6 projecttext">
+	      <div class="projtitle">
+		BOSS
+	      </div>
+	      <div class="projsubtitle">
+		CS169: Software Engineering
+	      </div>
+	      <div class="projdescr">
+		We collaborated with UCB's campus IT services to develop the Berkeley Online Student Scheduler. Not just a calendar system, it had to handle complicated rules, such as maintaining a certain level of different types of employees at each site and allowing for student employees to divide, move, and even trade work shifts among eachother.
+	      </div>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-md-6 projimage">
 	      <a href="assets/img/projects/BOSS.png" data-lightbox="projects" title-"BOSS"><img src="assets/img/projects/th-BOSS.png" width="100%"/></a>
 	    </div>
 	  </div>
@@ -100,4 +172,5 @@
   <script src="assets/js/jquery-1.10.2.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/lightbox-2.6.min.js"></script>
+  <script src="assets/js/masonry.pkgd.min.js"></script>
 </html>
