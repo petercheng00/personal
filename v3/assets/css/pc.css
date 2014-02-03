@@ -1,5 +1,14 @@
+html {
+    height:100%;
+}
+
 body {
-    background-color:#888888;
+    height:100%;
+    background: url('../img/background.jpg') no-repeat bottom left fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 hr{
@@ -8,9 +17,13 @@ hr{
 
 .bodycontent {
     padding:70px;
-    background-color:#eeeeee;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius:25px;
 }
 
+.bottompadding {
+    padding-bottom:250px;
+}
 
 .center {
     float: none;
