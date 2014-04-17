@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Maximum Matching</title>
+    <link rel="stylesheet" href="gv.css">
+  </head>
+  <body>
+    <div id="topdiv">
+      <div id="controlsdiv">
+	<p>
+	  <form name="toolForm">
+	    <input type="radio" name="toolRadios" value="node"> Node <br>
+	    <input type="radio" name="toolRadios" value="edge"> Edge <br>
+	    <input type="radio" name="toolRadios" value="eraser"> Eraser <br>
+	  </form>
+	  <button id = "clear_button" type = "button">Clear All</button>
+	</p>
+      </div>
+      <div id="bothtitlediv">
+	<div id="titlediv">
+	  Maximum Matching
+	</div>
+	<div id="subtitlediv">
+	  The Hungarian Algorithm
+	</div>
+      </div>
+    </div>
+    <div id="div1">
+      <div id="leftcol">
+	<canvas id="imageView" width="600" height="500">
+	  <p>Unfortunately, your browser is currently unsupported by our web 
+	  application. Please try another browser, such as Chrome or Firefox instead. </p>
+	</canvas>
+      </div>
+
+      <div id="rightcol">
+	<div id="textBoxDiv">
+	  <textarea id ="textBox" rows="25" cols = "40" readonly="true">
+	  </textarea>
+	</div>
+	<button id = "back_button" type = "button"><--</button>
+	<button id = "continue_button" type = "button">--></button>
+      </div>
+    </div>
+    <script type="text/javascript"
+    src="graphDraw.js"></script>
+    <script type="text/javascript"
+    src="graphLogic.js"></script>
+    <script type="text/javascript" 
+    src="graphVisualizer.js"></script>
+    <div id="footer">
+      CS270 - Spring 2013 <br> Eric Hong<br> Peter Cheng 
+    </div>
+  </body>
+</html>
