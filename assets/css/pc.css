@@ -4,8 +4,9 @@ html {
 
 body {
     height:100%;
-	background-color: #11465c;
-	background-image: url("../img/axiom-pattern.png");
+	background: url("../img/background.png") no-repeat bottom left fixed;
+	background-size: 50%;
+	background-color: #3D7ABF;
 }
 
 hr {
