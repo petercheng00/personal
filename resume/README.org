@@ -1,0 +1,1 @@
+Here is my resume, generated from org-mode->LaTeX->pdf. The plan is to also generate to html and sync my website whenever the org-file is built as well.

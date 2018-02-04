@@ -1,0 +1,86 @@
+#+OPTIONS: toc:nil num:nil author:nil date:nil
+#+STARTUP: showall
+
+# Page margins
+#+LATEX_HEADER: \usepackage[letterpaper, top=0.5in, left=1in, right=1in, bottom=0.5in]{geometry}
+
+# Section heading formatting
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \titleformat*{\section}{\large\bfseries}
+#+LATEX_HEADER: \titleformat*{\subsection}{\large\bfseries}
+#+LATEX_HEADER: \titlespacing{\section}{0pt}{1pt}{1pt}[0pt]
+#+LATEX_HEADER: \titlespacing{\subsection}{18pt}{1pt}{1pt}[0pt]
+
+# List formatting
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \setlist[itemize]{nosep, leftmargin=31pt}
+
+# Don't indent paragraphs
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+
+# Intentionally blank because title formatting is annoying and title:nil doesn't work
+#+TITLE:
+
+#+BEGIN_LATEX
+\hfill
+\begin{minipage}{2.7in}
+\Huge
+Peter Cheng
+\end{minipage}
+\begin{minipage}{1.4in}
+\footnotesize
+http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
+\end{minipage}
+#+END_LATEX
+
+-----
+
+* Work Experience
+** Matterport: Computer Vision Engineer (2015 - current)
+- TSDF voxel-based approaches for meshing and surface completion, deployed on object-scale, interior, and city-wide datasets
+- Sensor and lens modeling, calibration, and live correction for RGB and structured light systems
+- GPU-optimized image processing, including robust HDR composition, demosaicing, and denoising
+- Depth post-processing for Lidar and structured light, including infilling, sharpening, and motion handling
+- Systems-level development and integration for wifi, usb, motor controllers, etc. enabling optimal capture and processing
+** Amazon Lab126: Emerging Technologies (2013 - 2014)
+- Created machine learning models for motion gesture recognition
+- Designed user interaction patterns based on gesture controls and perspective-dependent interfaces
+- Developed metrics and testing frameworks to quantify accuracy and usability for recognition models and user interfaces
+- 11 patents filed for user interaction concepts and technologies
+** UC Berkeley Student Affairs IT: Lead Desktop Engineer (2011 - 2012)
+- Hired and led a team to provide Tier 1-3 support for over a thousand campus employees
+** Arista Networks: Software Development Intern (2011)
+- Implemented the DHCP relaying module for Arista's networking OS
+
+-----
+
+* Education
+** M.S. Computer Science, UC Berkeley (2012 - 2013)
+- GPA 3.889, High Honors
+** Management of Technology Certificate, Haas School of Business (2012)
+- Completed 2 semesters of MBA courses and entrepreneurship projects
+** B.S. Electrical Engineering and Computer Science, UC Berkeley (2009 - 2012)
+- GPA 3.835, High Honors
+
+-----
+
+* Academic Research
+** Video and Image Processing Lab: Dr. Avideh Zakhor (2011 - 2013)
+- Generated textured 3d models of indoor areas using a backpack-mounted system consisting of cameras, lasers, and inertial sensors
+- Trained models to detect windows and lights towards producing interior energy models
+** Vision Sciences Lab: Dr. Christine Wildsoet (2011)
+- Analyzed data from eye-tracking devices to study effect of sunlight on myopia
+
+-----
+
+* Publications
+** Journal of Selected Topics in Signal Processing (2014)
+- Fast, Automated, Scalable Generation of Textured 3D Models of Indoor Environments
+** SPIE Computational Imaging (2013)
+- Texture mapping 3D models of indoor environments with noisy camera poses
+
+-----
+
+* Technical Skills
+- Languages: (Proficient) C++, Python, (Familiar) Java/Android, Matlab
+- Libraries: OpenCV, OpenCL, OpenNI, Ceres, Video4Linux2
