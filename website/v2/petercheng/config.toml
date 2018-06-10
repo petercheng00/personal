@@ -1,0 +1,4 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Peter Cheng"
+theme = "hyde-hyde"

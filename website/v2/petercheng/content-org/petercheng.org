@@ -1,0 +1,27 @@
+#+HUGO_BASE_DIR: ../
+#+HUGO_AUTO_SET_LASTMOD: t
+
+* Pages
+  :PROPERTIES:
+  :EXPORT_HUGO_SECTION: ./
+  :EXPORT_HUGO_MENU: :menu main
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :noauthor true :nocomment true :nodate true :nopaging true :noread true
+  :END:
+
+** About
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: about
+   :END:
+   Here's the about page
+
+* Posts
+  :PROPERTIES:
+  :EXPORT_HUGO_SECTION: posts
+  :END:
+** Website V2 Setup
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: website-v2-setup
+   :END:
+   So here's where content goes
+   Some more content
+   New line?
