@@ -1,0 +1,3 @@
+[submodule "website/v2/petercheng/themes/hyde-hyde"]
+	path = website/v2/petercheng/themes/hyde-hyde
+	url = https://github.com/htr3n/hyde-hyde.git

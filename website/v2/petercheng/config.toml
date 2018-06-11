@@ -1,4 +1,9 @@
-baseURL = "http://example.org/"
+baseURL = "http://petercheng.net/"
 languageCode = "en-us"
 title = "Peter Cheng"
 theme = "hyde-hyde"
+
+[params]
+author = "Peter Cheng"
+authorimage = "https://lh3.googleusercontent.com/lUDWZRccpexpcM66hVGjr5J7JUxBIYIQ8FVtFC3JuiieQweAuaLqQsZM3kgFVNLQv2Z0wOe2hFE_bj4JhxY2UKzaGeKG5OQmzDEcVGtNHohy3xJ3y5WUnBwf91cPjIcQmDqDCTHOnsY3jAmwbDJK9rG-kkH7t_F1Zg1oIf7MOu9Mr9pr-gf_UUX9Ymk0MwMnIcIRVv0PVTS1uj90SSUsLzr5gy3frutTDdb_gXXChXZDgg293PImUBYUwEC-4pgxKy-n_E_f0JHfELP1I9Pq4u3Ydlv9i9EkmxKiuaVWp49igfX0NsUHyD-joco7uig_JUyWgAhx-6FP9WA5i-OW672AiYNsYt2org_D18-K4JfOSHnhqTsfSY50ViRmMynkI10eI5x1OFipF-fvFm5wyWht1rCNYTVcvQIJk4Q_fxJc3uEuVd2kmSkJT31x9C7cvgj8Hv3BUxK2_A4gpSHjGJqPpSxX9Wh127k81jH5K8apyp3Ip5bERGyXeYfg7oOChLcfflbJ9nwgE1nTEr9tNCVUnIgLOfNZWb47dACYMVi7JWa-xtQJqPCJ4YcYFPYM2JTsz6i5BdIqLW2AM4yhgHoWsspuYBqN5azQ7yAWHjBOVRvQKeuMuXpebRxnXDEZnnYHNe3EpuXtc4q9PrDwBcqC2SpImsLo7A=s250-k-no"
+description = "Random stuff"

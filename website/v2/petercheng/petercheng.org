@@ -1,4 +1,4 @@
-#+HUGO_BASE_DIR: ../
+#+HUGO_BASE_DIR: ./
 #+HUGO_AUTO_SET_LASTMOD: t
 
 * Pages
@@ -11,8 +11,14 @@
 ** About
    :PROPERTIES:
    :EXPORT_FILE_NAME: about
+   :EXPORT_HUGO_TYPE: about
    :END:
-   Here's the about page
+   I'm a Computer-Vision-focused software engineer based in the San Francisco Bay Area.
+
+** Posts
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: _index
+   :END:
 
 * Posts
   :PROPERTIES:
@@ -23,5 +29,17 @@
    :EXPORT_FILE_NAME: website-v2-setup
    :END:
    So here's where content goes
+
+
+
+
    Some more content
    New line?
+
+
+
+* Footnotes
+​* COMMENT Local Variables                          :ARCHIVE:
+# Local Variables:
+# eval: (add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local)
+# End:
