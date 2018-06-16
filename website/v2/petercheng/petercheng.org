@@ -24,11 +24,73 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
-** Emacs and Hugo on NearlyFreeSpeech.net
+** Building Meshlab from Source in Ubuntu 18.04
    :PROPERTIES:
-   :EXPORT_FILE_NAME: website-v2-setup
+   :EXPORT_FILE_NAME: meshlab-build
    :END:
-   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words, which seems a little backwards. Previously I used bootstrap plus a bit of manual editing. This time I'll be combining the old and the new by publishing to Hugo from Emacs org-mode, assisted by the ox-hugo plugin. This post will self-document my steps to get org, ox-hugo, and hugo up and running on my domain at nearlyfreespeech.net.
+   git clone git@github.com:cnr-isti-vclab/meshlab.git
+   git clone git@github.com:cnr-isti-vclab/vcglib.git -b devel
+   sudo apt install qt5-qmake qtscript5-dev libqt5xmlpatterns5-dev libqt5widgets5 libqt5gui5 libqt5network5 libqt5core5a libdouble-conversion1
+
+
+
+   cd meshlab/src/external
+   qmake -qt=5 external.pro
+   make -j6
+   cd ../common
+   qmake -qt=5 common.pro
+   make -j6
+   hit error here
+   https://github.com/cnr-isti-vclab/meshlab/issues/188
+   https://data.gpo.zugaina.org/gentoo/media-gfx/meshlab/files/2016.12/meshlab-2016.12-remove-header.patch
+   #+BEGIN_SRC
+   diff -ru vcglib/wrap/io_trimesh/import_nvm.h vcglib/wrap/io_trimesh/import_nvm.h
+   --- a/vcglib/wrap/io_trimesh/import_nvm.h	2016-12-29 12:54:58.000000000 +0300
+   +++ b/vcglib/wrap/io_trimesh/import_nvm.h	2017-12-28 12:20:14.591670159 +0300
+   @@ -85,15 +85,6 @@
+   return true;
+   }
+ 
+   -static bool ReadHeader(const char * filename,unsigned int &/*num_cams*/, unsigned int &/*num_points*/){
+   -    FILE *fp = fopen(filename, "r");
+   -    if(!fp) return false;
+   -    ReadHeader(fp);
+   -    fclose(fp);
+   -    return true;
+   -}
+   -
+   -
+   static int Open( OpenMeshType &m, std::vector<Shot<ScalarType> >  & shots,
+   std::vector<std::string > & image_filenames,
+   const char * filename, CallBackPos *cb=0)
+   diff -ru vcglib/wrap/io_trimesh/import_out.h vcglib/wrap/io_trimesh/import_out.h
+   --- a/vcglib/wrap/io_trimesh/import_out.h	2016-12-29 12:54:58.000000000 +0300
+   +++ b/vcglib/wrap/io_trimesh/import_out.h	2017-12-28 12:20:48.434017234 +0300
+   @@ -85,15 +85,6 @@
+   return true;
+   }
+ 
+   -static bool ReadHeader(const char * filename,unsigned int &/*num_cams*/, unsigned int &/*num_points*/){
+   -    FILE *fp = fopen(filename, "r");
+   -    if(!fp) return false;
+   -    ReadHeader(fp);
+   -    fclose(fp);
+   -    return true;
+   -}
+   -
+   -
+   static int Open( OpenMeshType &m, std::vector<Shot<ScalarType> >  & shots,
+   std::vector<std::string > & image_filenames,
+   const char * filename,const char * filename_images, CallBackPos *cb=0)
+   #+END_SRC
+   cd ..
+   qmake -qt=5 meshlab_full.pro
+   make -j6
+   error number 2 here
+   cp external/lib/linux/* external/lib/linux-g++
+
+
+
 
 ** Dual-booting Ubuntu 18.04 with macOS (optional full disk encryption)
    :PROPERTIES:
@@ -69,3 +131,8 @@
      After going through the above process, I discovered that Ubuntu 18.04 no longer supports homedir encryption. Furthermore, while full disk encryption is an option in the installer, it requires wiping the entire physical disk. So that's not great either. Fortunately, I came across this well-written [[https://blog.jayway.com/2015/11/22/ubuntu-full-disk-encrypted-macosx/][blog post]] that provides all the details to manually encrypt the Ubuntu partition before installing. As above, I chose to skip the swap partition steps, and otherwise followed it with only one issue.
 
      Strangely, I again had the installer repeatedly crash on me while "copying files". This time it was not due to any grub conflicts that I could find. As an unsatisfying workaround, I realized that it would only crash after I entered my account/login details. So I simply stayed on that screen until the activity led on my usb drive stopped flashing. I then continued forward, allowed it to crash, and then moved on with the post-installation instructions, and so far things are working.
+** Emacs and Hugo on NearlyFreeSpeech.net
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: website-v2-setup
+   :END:
+   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words, which seems a little backwards. Previously I used bootstrap plus a bit of manual editing. This time I'll be combining the old and the new by publishing to Hugo from Emacs org-mode, assisted by the ox-hugo plugin. This post will self-document my steps to get org, ox-hugo, and hugo up and running on my domain at nearlyfreespeech.net.
