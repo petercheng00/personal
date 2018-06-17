@@ -4,10 +4,7 @@
 * Pages
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: ./
-  :EXPORT_HUGO_MENU: :menu main
-  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :noauthor true :nocomment true :nodate true :nopaging true :noread true
   :END:
-
 ** About
    :PROPERTIES:
    :EXPORT_FILE_NAME: about
@@ -15,42 +12,47 @@
    :END:
    I'm a Computer-Vision-focused software engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've built major portions of our image capture, color processing, and surface reconstruction pipelines. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
 
-** Posts
-   :PROPERTIES:
-   :EXPORT_FILE_NAME: _index
-   :END:
-
 * Posts
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
-** Building Meshlab from Source in Ubuntu 18.04
+** Building Meshlab from Source in Ubuntu
    :PROPERTIES:
    :EXPORT_FILE_NAME: meshlab-build
    :END:
+   Every time I build Meshlab, it's a bit of an adventure. So here's my notes from my most recent build (June 2018, Ubuntu 18.04)
+
+   Clone the repositories (This is for building master, switch to a release branch/tag if you prefer)
+   #+BEGIN_SRC sh
    git clone git@github.com:cnr-isti-vclab/meshlab.git
    git clone git@github.com:cnr-isti-vclab/vcglib.git -b devel
-   sudo apt install qt5-qmake qtscript5-dev libqt5xmlpatterns5-dev libqt5widgets5 libqt5gui5 libqt5network5 libqt5core5a libdouble-conversion1
-
-
-
+   #+END_SRC
+   Install dependencies (You may need other dependencies, these are just the ones that I needed at this point in time)
+   #+BEGIN_SRC sh
+   sudo apt install qt5-qmake qtscript5-dev libqt5xmlpatterns5-dev libqt5widgets5 libqt5gui5 libqt5network5 libqt5core5a libdouble-conversion1 libxcb-xinerama0
+   #+END_SRC
+   Build external plugins
+   #+BEGIN_SRC sh
    cd meshlab/src/external
    qmake -qt=5 external.pro
    make -j6
+   #+END_SRC
+   Build common project
+   #+BEGIN_SRC sh
    cd ../common
    qmake -qt=5 common.pro
    make -j6
-   hit error here
+   #+END_SRC
+   At this point I encountered an error about =ReadHeader=. The following GitHub issue contains a fix, and I've pasted the patch below
    https://github.com/cnr-isti-vclab/meshlab/issues/188
-   https://data.gpo.zugaina.org/gentoo/media-gfx/meshlab/files/2016.12/meshlab-2016.12-remove-header.patch
-   #+BEGIN_SRC
+   #+BEGIN_SRC sh
    diff -ru vcglib/wrap/io_trimesh/import_nvm.h vcglib/wrap/io_trimesh/import_nvm.h
    --- a/vcglib/wrap/io_trimesh/import_nvm.h	2016-12-29 12:54:58.000000000 +0300
    +++ b/vcglib/wrap/io_trimesh/import_nvm.h	2017-12-28 12:20:14.591670159 +0300
    @@ -85,15 +85,6 @@
    return true;
    }
- 
+
    -static bool ReadHeader(const char * filename,unsigned int &/*num_cams*/, unsigned int &/*num_points*/){
    -    FILE *fp = fopen(filename, "r");
    -    if(!fp) return false;
@@ -69,7 +71,7 @@
    @@ -85,15 +85,6 @@
    return true;
    }
- 
+
    -static bool ReadHeader(const char * filename,unsigned int &/*num_cams*/, unsigned int &/*num_points*/){
    -    FILE *fp = fopen(filename, "r");
    -    if(!fp) return false;
@@ -83,42 +85,44 @@
    std::vector<std::string > & image_filenames,
    const char * filename,const char * filename_images, CallBackPos *cb=0)
    #+END_SRC
+   Build meshlab itself
+   #+BEGIN_SRC sh
    cd ..
    qmake -qt=5 meshlab_full.pro
    make -j6
-   error number 2 here
+   #+END_SRC
+   I hit an error about missing libraries - the following fixed it for me
+   #+BEGIN_SRC sh
    cp external/lib/linux/* external/lib/linux-g++
-
-
-
-
-** Dual-booting Ubuntu 18.04 with macOS (optional full disk encryption)
+   #+END_SRC
+   If everything worked, the meshlab binary will be at src/distrib/meshlab
+** Dual-booting Ubuntu 18.04 with macOS (including full disk encryption)
    :PROPERTIES:
    :EXPORT_FILE_NAME: ubuntu-on-macbook-pro
    :END:
-**** Introduction
+*** Introduction
      I've been running Ubuntu on Macbook Pros for a couple years now, and while the ease of installation, driver support, and general stability has increased by a huge amount, it can be difficult to find up-to-date guides. I've recently set up a mid-2015 macbook pro dual booting macOS with Ubuntu 18.04, so I figured I'd document my steps. First some overall notes and warnings, then simple instructions for a non-encrypted install, followed by slightly longer instructions for an encrypted install.
 
-**** Notes and Warnings
+*** Notes and Warnings
      * I've heard that support for the newer touchbar-equipped macbook pros is not great. I have not tried those, but I've used a mid-2014, as well as 2 variants of mid-2015 macbook pros long-term, on 14.04, 16.04, and 18.04.
      * If you get your disk into any terrible state, macbooks come with pretty great recovery options. Command-R will boot into a recovery partition, and even if that's lost, Option-R will get you into an internet-recovery mode.
-     * If you want to remove Ubuntu, and find that grub is still hanging around, run the following from macOS.
-       #+BEGIN_SRC
+     * If you want to remove Ubuntu, and find that grub is still hanging around (or somehow end up with an extraneous grub), run the following from macOS.
+       #+BEGIN_SRC sh
        mkdir mnt
        sudo mount -t msdos /dev/disk0s1 mnt
        sudo rm -rf mnt/EFI/ubuntu
        #+END_SRC
      * System upgrades of either macOS or ubuntu may cause refind to lose priority and make it more difficult to dual-boot. If that happens, you can run refind-mkdefault, which is available in the mac download as explained below, or from ~sudo apt install refind~. For more information see this [[https://www.rodsbooks.com/refind/bootcoup.html][handy guide]] from the refind website
 
-**** Create Ubuntu bootable USB
+*** Create Ubuntu bootable USB
      Instructions for [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos#0][macOS]], [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-ubuntu#0][Ubuntu]], [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows#0][Windows]]
 
-**** Prepare macOS
+*** Prepare macOS
      First thing we'll need to do is reduce your macOS partition size in order to make some space for Ubuntu. This should be fairly straightforward using macOS's Disk Utility applicaton.
 
-     Next, we'll install rEFInd, which will help us manage different boot options. Download it [[http://www.rodsbooks.com/refind/][here], and run the refind-install binary. Most likely you'll see an error message about System Integrity Protection being enabled. As the error message suggests, we can either install from the recovery partition, or temporarily disable SIP. To get into recovery mode, hold command + r while booting, and from there a terminal can be accessed via the Utilities menu. You can try running refind-install from recovery mode, but I had no luck with that, and just got the same error. So instead, I ran =csrutil disable= to disable SIP. After a reboot (back to non-recovery mode, because it's faster), refind-install should work. You can then re-enter recovery mode to run =csrutil enable=. After this process, you should now see the refind menu whenever you boot. You'll be able to choose between macOS and any other operating systems you load, as well boot from external drives.
+     Next, install rEFInd, which is available [[http://www.rodsbooks.com/refind][here]], and run the refind-install binary. Most likely you'll see an error message about System Integrity Protection being enabled. As the error message suggests, we can either install from the recovery partition, or temporarily disable SIP. To get into recovery mode, hold command + r while booting, and from there a terminal can be accessed via the Utilities menu. You can try running refind-install from recovery mode, but I had no luck with that, and just got the same error. So instead, I ran =csrutil disable= to disable SIP. After a reboot (back to non-recovery mode, because it's faster), refind-install should work. You can then re-enter recovery mode to run =csrutil enable=. After this process, you should now see the refind menu whenever you boot. You'll be able to choose between macOS and any other operating systems you load, as well boot from external drives.
 
-**** Install Ubuntu 18.04 (no encryption)
+*** Install Ubuntu 18.04 (no encryption)
      After booting from the Ubuntu bootable USB, you can either install straightaway, or do it from within the "try ubuntu" environment. Either way, the only important step is to select "Something else" on the menu that asks how/where to install Ubuntu. You should see the empty space on your disk that you freed up from macOS, and be able to add partitions. This is my configuration:
      * Boot partition, 500 MB, ext4, mounted at /boot (sda4 for me)
      * Root partition, remaining space, ext4, mounted at / (sda5 for me)
@@ -127,7 +131,7 @@
 
      Everything should be good to go from here. As a side-note the installer crashed for me apparently because I had another copy of grub hanging out on my /sda from some earlier tests. Deleting it per the notes above, and then retrying worked for me.
 
-**** Install Ubuntu 18.04 with full disk encryption
+*** Install Ubuntu 18.04 with full disk encryption
      After going through the above process, I discovered that Ubuntu 18.04 no longer supports homedir encryption. Furthermore, while full disk encryption is an option in the installer, it requires wiping the entire physical disk. So that's not great either. Fortunately, I came across this well-written [[https://blog.jayway.com/2015/11/22/ubuntu-full-disk-encrypted-macosx/][blog post]] that provides all the details to manually encrypt the Ubuntu partition before installing. As above, I chose to skip the swap partition steps, and otherwise followed it with only one issue.
 
      Strangely, I again had the installer repeatedly crash on me while "copying files". This time it was not due to any grub conflicts that I could find. As an unsatisfying workaround, I realized that it would only crash after I entered my account/login details. So I simply stayed on that screen until the activity led on my usb drive stopped flashing. I then continued forward, allowed it to crash, and then moved on with the post-installation instructions, and so far things are working.
@@ -135,4 +139,5 @@
    :PROPERTIES:
    :EXPORT_FILE_NAME: website-v2-setup
    :END:
-   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words, which seems a little backwards. Previously I used bootstrap plus a bit of manual editing. This time I'll be combining the old and the new by publishing to Hugo from Emacs org-mode, assisted by the ox-hugo plugin. This post will self-document my steps to get org, ox-hugo, and hugo up and running on my domain at nearlyfreespeech.net.
+*** Introduction
+   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words. Previously I used bootstrap plus a bit of manual editing. This time I'll be using a pipeline of Emacs org-mode -> ox-hugo -> hugo -> nearlyfreespeech.net. This post will self-document my steps to get all that up and running.

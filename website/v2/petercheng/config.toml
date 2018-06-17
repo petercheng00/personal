@@ -4,9 +4,22 @@ title = "Peter Cheng"
 theme = "hyde-hyde"
 
 [params]
-author = "Peter Cheng"
-authorimage = "https://lh3.googleusercontent.com/7Sd0xYbv_tqNQE7DBRy8VQbH0nFW5roRLOEC7BbHsoA8bCB9dbd8rDiDVFfnyJ-ETqASlhsXPBh_TajHUdYvp-pgiOK28Af4v0qcO3CQKIx1CZFVX5gaNlUHTeVw9Qcidk3UqjQJWeTJjwviu1oK0CwUY_mg5MC-6sywaL0JFwdCsM0CyCV88IR7-6y2S38b_yHtpZj0SWbUGIBiO1-b7bjsCAa9jqJiDbeWHt9q0xqIP9-gxqZt3q_f3pgK4qnH6xyIJcfGSRQBcfGDNTkuLeQZpxaIwl_GenhQsUWkcsXyr2EnkpLC3N3nqFXPTOdBNQgwt2ukpQqcKlcP-iDn7KNzoFMfkY9FrbJPQSsDvjlz46u9zHVV5Dw8ieTFe7PesnQmaPzkrjBPtbOTvDBn0TA6XbmKQhOMP3vRo1OdpzWq0nvruZoIGhHWhVgIDbSYlD9NRqhNfo62V038ZIM0Px8Os01nFpWbb9NZBWNL7BprdAtM-zTCV_14O4GTul6Ku2PuMWr_4oYK744lVU7MHLzk4ADOb-yBPaxBv9zp57-bINM192GKnp7PyWzrRutlLgJ29Ro839EyFpPwQcPTaIngYS0Oztvm5SmafsTP=s970-no"
-description = "Things about stuff"
+    author = "Peter Cheng"
+    authorimage = "https://lh3.googleusercontent.com/7Sd0xYbv_tqNQE7DBRy8VQbH0nFW5roRLOEC7BbHsoA8bCB9dbd8rDiDVFfnyJ-ETqASlhsXPBh_TajHUdYvp-pgiOK28Af4v0qcO3CQKIx1CZFVX5gaNlUHTeVw9Qcidk3UqjQJWeTJjwviu1oK0CwUY_mg5MC-6sywaL0JFwdCsM0CyCV88IR7-6y2S38b_yHtpZj0SWbUGIBiO1-b7bjsCAa9jqJiDbeWHt9q0xqIP9-gxqZt3q_f3pgK4qnH6xyIJcfGSRQBcfGDNTkuLeQZpxaIwl_GenhQsUWkcsXyr2EnkpLC3N3nqFXPTOdBNQgwt2ukpQqcKlcP-iDn7KNzoFMfkY9FrbJPQSsDvjlz46u9zHVV5Dw8ieTFe7PesnQmaPzkrjBPtbOTvDBn0TA6XbmKQhOMP3vRo1OdpzWq0nvruZoIGhHWhVgIDbSYlD9NRqhNfo62V038ZIM0Px8Os01nFpWbb9NZBWNL7BprdAtM-zTCV_14O4GTul6Ku2PuMWr_4oYK744lVU7MHLzk4ADOb-yBPaxBv9zp57-bINM192GKnp7PyWzrRutlLgJ29Ro839EyFpPwQcPTaIngYS0Oztvm5SmafsTP=s970-no"
+    description = "Things about stuff"
+    highlightjs = true
+
 [params.social]
-github = "petercheng00"
-linkedin = "petercheng00"
+    github = "petercheng00"
+    linkedin = "petercheng00"
+
+[[menu.main]]
+    name = "Posts"
+    weight = 100
+    identifier = "posts"
+    url = "/posts/"
+[[menu.main]]
+    name = "About"
+    identifier = "about"
+    weight = 200
+    url = "/about/"
