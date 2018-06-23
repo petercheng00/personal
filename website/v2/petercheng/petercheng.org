@@ -1,5 +1,4 @@
 #+HUGO_BASE_DIR: ./
-#+HUGO_AUTO_SET_LASTMOD: t
 
 * Pages
   :PROPERTIES:
@@ -10,7 +9,13 @@
    :EXPORT_FILE_NAME: about
    :EXPORT_HUGO_TYPE: about
    :END:
-   I'm a Computer-Vision-focused software engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've built major portions of our image capture, color processing, and surface reconstruction pipelines. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
+   I'm a Computer-Vision-focused software engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've primarily worked on image capture, color processing, and surface reconstruction. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
+
+   -----
+
+   [[/files/petercheng_resume.pdf][Click here for a pdf version of my resume]]
+
+    #+INCLUDE: "../../../resume/resume.org" :lines "35-"
 
 * Posts
   :PROPERTIES:
@@ -19,8 +24,9 @@
 ** Building Meshlab from Source in Ubuntu
    :PROPERTIES:
    :EXPORT_FILE_NAME: meshlab-build
+   :EXPORT_DATE: 2018-06-16
    :END:
-   Every time I build Meshlab, it's a bit of an adventure. So here's my notes from my most recent build (June 2018, Ubuntu 18.04)
+   Every time I build Meshlab, it's always a little more work than it really should be. So here's my notes from my most recent build (June 2018, Ubuntu 18.04)
 
    Clone the repositories (This is for building master, switch to a release branch/tag if you prefer)
    #+BEGIN_SRC sh
@@ -45,7 +51,7 @@
    #+END_SRC
    At this point I encountered an error about =ReadHeader=. The following GitHub issue contains a fix, and I've pasted the patch below
    https://github.com/cnr-isti-vclab/meshlab/issues/188
-   #+BEGIN_SRC sh
+   #+BEGIN_SRC diff
    diff -ru vcglib/wrap/io_trimesh/import_nvm.h vcglib/wrap/io_trimesh/import_nvm.h
    --- a/vcglib/wrap/io_trimesh/import_nvm.h	2016-12-29 12:54:58.000000000 +0300
    +++ b/vcglib/wrap/io_trimesh/import_nvm.h	2017-12-28 12:20:14.591670159 +0300
@@ -99,9 +105,10 @@
 ** Dual-booting Ubuntu 18.04 with macOS (including full disk encryption)
    :PROPERTIES:
    :EXPORT_FILE_NAME: ubuntu-on-macbook-pro
+   :EXPORT_DATE: 2018-06-08
    :END:
 *** Introduction
-     I've been running Ubuntu on Macbook Pros for a couple years now, and while the ease of installation, driver support, and general stability has increased by a huge amount, it can be difficult to find up-to-date guides. I've recently set up a mid-2015 macbook pro dual booting macOS with Ubuntu 18.04, so I figured I'd document my steps. First some overall notes and warnings, then simple instructions for a non-encrypted install, followed by slightly longer instructions for an encrypted install.
+     I've been running Ubuntu on Macbook Pros for a couple years now, and while the ease of installation, driver support, and general stability has greatly improved in recent years, it can be difficult to find up-to-date guides. I've recently set up a mid-2015 macbook pro dual booting macOS with Ubuntu 18.04, so I figured I'd document my steps. First some overall notes and warnings, then simple instructions for a non-encrypted install, followed by slightly longer instructions for an encrypted install.
 
 *** Notes and Warnings
      * I've heard that support for the newer touchbar-equipped macbook pros is not great. I have not tried those, but I've used a mid-2014, as well as 2 variants of mid-2015 macbook pros long-term, on 14.04, 16.04, and 18.04.
@@ -112,7 +119,7 @@
        sudo mount -t msdos /dev/disk0s1 mnt
        sudo rm -rf mnt/EFI/ubuntu
        #+END_SRC
-     * System upgrades of either macOS or ubuntu may cause refind to lose priority and make it more difficult to dual-boot. If that happens, you can run refind-mkdefault, which is available in the mac download as explained below, or from ~sudo apt install refind~. For more information see this [[https://www.rodsbooks.com/refind/bootcoup.html][handy guide]] from the refind website
+     * System upgrades of either macOS or ubuntu may cause refind to lose priority and make it more difficult to dual-boot. If that happens, you can run refind-mkdefault, which is available in the mac download as explained below, or from ~sudo apt install refind~. For more information see this [[https://www.rodsbooks.com/refind/bootcoup.html][handy guide]] from the refind website.
 
 *** Create Ubuntu bootable USB
      Instructions for [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos#0][macOS]], [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-ubuntu#0][Ubuntu]], [[https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows#0][Windows]]
@@ -135,9 +142,78 @@
      After going through the above process, I discovered that Ubuntu 18.04 no longer supports homedir encryption. Furthermore, while full disk encryption is an option in the installer, it requires wiping the entire physical disk. So that's not great either. Fortunately, I came across this well-written [[https://blog.jayway.com/2015/11/22/ubuntu-full-disk-encrypted-macosx/][blog post]] that provides all the details to manually encrypt the Ubuntu partition before installing. As above, I chose to skip the swap partition steps, and otherwise followed it with only one issue.
 
      Strangely, I again had the installer repeatedly crash on me while "copying files". This time it was not due to any grub conflicts that I could find. As an unsatisfying workaround, I realized that it would only crash after I entered my account/login details. So I simply stayed on that screen until the activity led on my usb drive stopped flashing. I then continued forward, allowed it to crash, and then moved on with the post-installation instructions, and so far things are working.
-** Emacs and Hugo on NearlyFreeSpeech.net
+** Publishing a Website from Emacs and Hugo
    :PROPERTIES:
    :EXPORT_FILE_NAME: website-v2-setup
+   :EXPORT_DATE: 2018-06-04
    :END:
 *** Introduction
-   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words. Previously I used bootstrap plus a bit of manual editing. This time I'll be using a pipeline of Emacs org-mode -> ox-hugo -> hugo -> nearlyfreespeech.net. This post will self-document my steps to get all that up and running.
+   After 5 years, it's time to give the site a bit of a refresh, now with fewer images and more words. Previously I used bootstrap plus a bit of manual editing. This time I'll be using a pipeline of Emacs org-mode -> ox-hugo -> hugo -> nearlyfreespeech.net. This post will self-document my steps to get all that up and running. The last time I did any web-related things was over 5 years ago, and I wasn't an expert then, so these steps should be taken with a grain of salt.
+*** Hugo Setup
+    #+BEGIN_SRC sh
+    sudo snap install hugo
+    mkdir petercheng && cd petercheng
+    hugo new site petercheng
+    #+END_SRC
+    Emacs init:
+    #+BEGIN_SRC lisp
+    (use-package ox-hugo
+        :ensure t
+        :after ox)
+    #+END_SRC
+    Set up a theme (I'm using the [[https://themes.gohugo.io/hyde-hyde/][hyde-hyde]] theme)
+    #+BEGIN_SRC sh
+    git submodule add https://github.com/htr3n/hyde-hyde.git themes/hyde-hyde
+    #+END_SRC
+*** config.toml
+    For my intended setup, there are only 2 files I'll be working with. The first one is ~config.toml~, which stores global hugo settings, as well as parameters for my chosen theme. I'm not really sure how to find all the toggle-able parameters for a given theme besides digging through the theme code or looking at example sites.
+
+    As an early example of why I'm using org mode, I can directly insert a live copy of my ~config.toml~ file below, simply by including the line:
+
+    ~#+INCLUDE: "config.toml" src ini~
+    #+INCLUDE: "config.toml" src ini
+
+    One early roadblock I hit was that hyde-hyde uses highlight.js for syntax highlighting, which does not contain ~emacs-lisp~ as a language option, unlike org-mode and chroma (hugo's default syntax highlighter). I'm currently using ~lisp~ as a compromise, and it took me a while to realize that highlightjslanguages needed to be set to include non-default languages in highlight.js. If an unsupported (or empty!) language is passed to highlight.js, at least with hyde-hyde, it results in poorly formatted output, which led to much confusion for a while.
+
+*** petercheng.org
+    The other file I need to create is the org file that generates all this content, on every page, following ox-hugo's single-page architecture. In normal Hugo, individual pages written in markdown (or now in org-mode) are placed inside the ~content~ directory inside the project root. With ox-hugo, a single org-mode file can be used to generate all pages, posts, and any other content. This has some advantages in allowing usage of org-mode functionality, as well as re-use of content or property settings across pages.
+
+    There's a number of hugo properties that can be set within the file, but the only required one is ~HUGO_BASE_DIR~, which specifies the root directory of the hugo website, relative to the org file.
+    #+BEGIN_SRC sh
+    #+HUGO_BASE_DIR: ./
+    #+END_SRC
+
+    Afterwards, I have 2 top-level sections in my org file, ~Pages~, and ~Posts~. Any properties set under a section will be applied to subsections, so I have the following properties set for each, to place pages at the top level of my exported files, and posts within a subdirectory.
+    #+BEGIN_SRC sh
+    * Pages
+        :PROPERTIES:
+        :EXPORT_HUGO_SECTION: ./
+        :END:
+    * Posts
+        :PROPERTIES:
+        :EXPORT_HUGO_SECTION: posts
+        :END:
+    #+END_SRC
+    I can then create pages or posts by creating subsections within the relevant section. The ~EXPORT_FILE_NAME~ property is required to be set for each, which determines the exported filename. Here's an example of the properties setting for this current post.
+    #+BEGIN_SRC markdown
+    ** Publishing a Website from Emacs and Hugo
+        :PROPERTIES:
+        :EXPORT_FILE_NAME: website-v2-setup
+        :EXPORT_DATE: 2018-06-04
+        :END:
+    #+END_SRC
+
+*** Exporting
+    Ox-hugo adds a new export option to the org-mode export menu. ~(C-c C-e)~ by default. There's a few options for exporting, but currently I find it simplest just to always export all content, with ~(C-c C-e H A)~. One setting I've seen used a lot is ~#+HUGO_AUTO_SET_LASTMOD: t~, and that doesn't play nicely if always updating all files. But I don't feel a need to track and update dates on every edit.
+
+    After exporting, markdown files should be created in the content directory, and hugo will auto-reload pages if already running (to start hugo, run ~hugo server~ from the base directory).
+
+*** Getting Online
+    There are some fancy options for deploying, such as [[https://www.penwatch.net/cms/get_started_plain_blog/][this guide]], which demonstrates hugo publishing on a remote server, triggered by git post-receive. For the time being I'm going to keep thing simple, and simply use a script to generate a static site, which I'll scp over to my host at nearlyfreespeech.net.
+    #+INCLUDE: "publish.sh" src bash
+
+
+*** Future Improvements
+    One advantage of the git (or similar) approach is the ability to clean up renamed or deleted files, which I'll currently have to track manually, so I may move to something like that soon.
+
+    Another thing I'd like to setup is to export my resume to pdf while publishing as well.
