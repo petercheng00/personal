@@ -7,4 +7,4 @@ server=ssh.phx.nearlyfreespeech.net
 
 rm -r public
 hugo
-scp -r public/* "$username@$server:"
+rsync -r public/* "$username@$server:"
