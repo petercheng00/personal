@@ -21,6 +21,31 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Serial Access for R8000/AC3200 (and other) Routers
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: serial_router
+   :EXPORT_DATE: 2019-07-04
+   :END:
+   So you bricked your router. Or maybe you just want a more convenient way to manage and monitor firmware upgrades (wiping settings via command is a lot more pleasant than holding down power buttons). Either way, adding serial access is pretty easy for many routers. I first did this a couple years ago, but I had to do it again recently, so I documented the process here for my current router (Netgear R8000/AC3200). I've also since discovered that there are pretty good instructions on the [[https://wiki.dd-wrt.com/wiki/index.php/Serial_Recovery][dd-wrt wiki]] and [[https://www.myopenrouter.com/article/how-set-serial-console-netgear-r8000][myopenrouter]] as well.
+*** Tools
+    The main thing you need is a setup that has usb on one end (for the computer), and standard serial pins (at least RX, TX, ground) on the other end. *Important:* the serial side needs to be at 3.3v, and usb operates at 5v, so make sure you have a level shifter in there somewhere. I believe there's some cables that have this all in one package, but I ended up using [[https://smile.amazon.com/OSEPP-Breakout-Board-Arduino-Compatible/dp/B007JBSSGQ][this breakout board]] which I purchased from Fry's. Anything that mentions USB to TTL, and 3.3V should work fine though. If you use a board like this you'll also need some wires and possibly a soldering iron (though tape or extra hands work just fine for a temporary unbricking setup). <a href='https://photos.google.com/share/AF1QipPRyCSh-X2oZq8ha2onWPUmwTt7cCIr39mHlvcYZuKkPdVkhjLCbqq0_OtEJuzPvQ?key=T1BCUXJfT19zZm4yYzNHbVBqQ1ZsZWZrbXpsWmF3&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/gynvi8Yh1xOA2Nj8ETiZCrH3YFakxAD2jL02wQjFBo605cFpAvrAFfvM2qkkE22e-Gi2GpceDdUCM6vMcj1sTdNG0xo4VoKwMKwSuEXDsHMhlqaiirAiUd5Yrfl_ZGZw6CHz1Wz_6A4=w2400' /></a>
+*** Getting to the pins (R8000 specific)
+    Now it's time to open up the case and get to the serial pins. The R8000 just has a handful of torx screws on the back and the bottom, [[https://photos.app.goo.gl/wSyQKvaseXRmDuJo8][as well as one hidden under the label]] (no turning back now, if you care about warranty!). After removing the bottom case, the antennas can easily be popped off, and [[https://photos.app.goo.gl/9MTjwmsnSa8ay3Ns9][should look something like this]]. There's also a ribbon cable connecting the main board to the top of the router, but it's long enough that you can just flip the board over without disconnecting it, [[https://photos.app.goo.gl/naY4WJWh9tTbWJiT9][like this.]] The 4 pins are now accessible (top left of prior image).
+*** Pin layout
+    In [[https://photos.app.goo.gl/TgmACeeHSymXxiFU9][this image]], the pin with the red wire attached is RX, orange is TX, and yellow is ground. The 4th pin is not needed here. If you are using a breakout board like me, keep in mind that RX on the router should go to TX on the board, and vice versa. [[https://photos.app.goo.gl/6u3PkuLCnxQWmat57][Here's my final setup]], complete with drilled hole for semi-permanent access (note the red and orange wires swapping).
+*** Computer stuff
+    On the computer end, any serial program like PuTTY or minicom will work. Set baud rate to 115200, and everything else should pretty much be defaults. Now, with everything connected, you should be able to see a stream of text output whenever the router boots. If you don't, try disconnecting from the router and shorting between RX and TX, and ensure you get proper loopback of any text (typed text should be echoed on screen), to verify your setup.
+*** Commands
+    To get to a command prompt, reboot the router and mash ~Ctrl-C~ a bunch as it starts up.
+    Pretty much the only command I use is ~nvram erase~, which resets router settings, and has generally resolved any boot issues I've encountered. You can also apply and transfer new firmware over telnet for more serious problems, and do a whole bunch of other things, but I'll leave those for other sites to cover, at least until I cause more problems and need to figure those things out for myself.
+
+** Hungarian Matching Demo
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: hungarian_matching
+   :EXPORT_DATE: 2019-07-03
+   :END:
+   Back in 2013, as a class project, we built a javascript demo of the hungarian algorithm. I came across it again while organizing some stuff, so figured I'd host it here, at [[/files/graphVisualizer/graphVisualizer.html][this link]]. The basic idea is that it's a polynomial-time method to obtain the optimal matching between 2 sets of objects, where every pairing has some cost (or reward) associated with it. I had never used javascript before this project, and I never used it again afterwards, so no idea if the code itself is any good, but it was a fun project.
+
 ** Building Meshlab from Source in Ubuntu
    :PROPERTIES:
    :EXPORT_FILE_NAME: meshlab-build
@@ -209,11 +234,7 @@
     After exporting, markdown files should be created in the content directory, and hugo will auto-reload pages if already running (to start hugo, run ~hugo server~ from the base directory).
 
 *** Getting Online
-    There are some fancy options for deploying, such as [[https://www.penwatch.net/cms/get_started_plain_blog/][this guide]], which demonstrates hugo publishing on a remote server, triggered by git post-receive. For the time being I'm going to keep thing simple, and simply use a script to generate a static site, which I'll scp over to my host at nearlyfreespeech.net.
+    There are some fancy options for deploying, such as [[https://www.penwatch.net/cms/get_started_plain_blog/][this guide]], which demonstrates hugo publishing on a remote server, triggered by git post-receive. For the time being I'm going to keep thing simple, and simply use a script to generate a static site, which I'll keep synced up via rsync. A final example of showing a live code view of my publishing script:
     #+INCLUDE: "publish.sh" src bash
 
 
-*** Future Improvements
-    One advantage of the git (or similar) approach is the ability to clean up renamed or deleted files, which I'll currently have to track manually, so I may move to something like that soon.
-
-    Another thing I'd like to setup is to export my resume to pdf while publishing as well.
