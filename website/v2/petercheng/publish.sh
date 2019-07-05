@@ -7,4 +7,7 @@ server=ssh.phx.nearlyfreespeech.net
 
 rm -r public
 hugo
-rsync -r public/* "$username@$server:"
+# rsync is problematic on WSL (https://github.com/microsoft/WSL/issues/2138)
+# --whole-file is one workaround
+# Not being able to use -z is another limitation
+rsync -avh --whole-file --progress --delete public/ "$username@$server:"
