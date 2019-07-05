@@ -5,7 +5,7 @@ theme = "hyde-hyde"
 
 [params]
     author = "Peter Cheng"
-    authorimage = "/files/me.jpg"
+    authorimage = "https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/me.jpg"
     description = "Things about stuff"
     highlightjs = true
     highlightjsstyle = "zenburn"
