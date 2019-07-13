@@ -13,7 +13,7 @@
    :EXPORT_FILE_NAME: about
    :EXPORT_HUGO_TYPE: about
    :END:
-   I'm a Computer-Vision-focused software engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've primarily worked on image capture, color processing, and surface reconstruction. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
+   I'm a computer vision engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've worked on a variety of topics including image processing, point cloud alignment, surface reconstruction, and semantic segmentation. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
 
    -----
 
@@ -24,6 +24,57 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Graph Cuts and Alpha Expansion
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: graph_cuts
+   :EXPORT_DATE: 2019-07-09
+   :END:
+   here is some text
+   \begin{equation}
+   \label{eq:1}
+   C = W\log_{2} (1+\mathrm{SNR})
+   \end{equation}
+   #+html: <font size="3" color="red">inline html</font>
+   #+BEGIN_EXPORT html
+   <font size="3" color="red">also html</font>
+
+<div id="container"></div>
+<script>
+    // Let's first initialize sigma:
+    var s = new sigma('container');
+
+    // Then, let's add some data to display:
+    s.graph.addNode({
+      // Main attributes:
+      id: 'n0',
+      label: 'Hello',
+      // Display attributes:
+      x: 0,
+      y: 0,
+      size: 1,
+      color: '#f00'
+    }).addNode({
+      // Main attributes:
+      id: 'n1',
+      label: 'World !',
+      // Display attributes:
+      x: 1,
+      y: 1,
+      size: 1,
+      color: '#00f'
+    }).addEdge({
+      id: 'e0',
+      // Reference extremities:
+      source: 'n0',
+      target: 'n1'
+    });
+
+    // Finally, let's ask our sigma instance to refresh:
+    s.refresh();
+  </script>
+
+   #+END_EXPORT
+
 ** Serial Access for R8000/AC3200 (and other) Routers
    :PROPERTIES:
    :EXPORT_FILE_NAME: serial_router

@@ -1,6 +1,6 @@
 [submodule "website/v2/petercheng/themes/hyde-hyde"]
 	path = website/v2/petercheng/themes/hyde-hyde
-	url = https://github.com/htr3n/hyde-hyde.git
+	url = https://github.com/petercheng00/hyde-hyde.git
 [submodule "website/v2/petercheng/static/files/graphVisualizer"]
 	path = website/v2/petercheng/static/files/graphVisualizer
 	url = https://github.com/petercheng00/graphVisualizer.git
