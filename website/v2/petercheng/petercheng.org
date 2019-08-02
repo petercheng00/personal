@@ -29,6 +29,42 @@
    :EXPORT_FILE_NAME: graph_cuts
    :EXPORT_DATE: 2019-07-09
    :END:
+   This post will cover the basic minimum-cut problem, explore its applicability to image-processing tasks, and show how the basic formulation and solution can be extended to solve some seemingly more-complicated problems.
+
+*** Graph Structure
+    A graph is a structure that consists of nodes and edges, where every edge forms a connection between two nodes. In the context of this post, each edge also has a weight, which represents some measure of how strongly its nodes should be held together.
+
+// diagram of basic graph here
+
+    A graph cut is a way of splitting the graph into 2 disconnected sub-graphs, by cutting (removing) certain edges. A minimum graph cut is the graph cut that minimizes the sum of the weights of the deleted edges. In the common case (which we will follow), we also must split the graph such that 2 specified nodes, s and t, end up separated.
+
+// diagrams here
+
+To sum things up, our basic graph cut problem takes place on a graph, where one node is labeled s, and another node is labeled t. The objective is to cut some number of edges such that there is no longer any way to traverse between s and t, and we want to minimize the total weight of cut edges.
+
+// side note about constraints
+    For the common min-cut setup that we will be looking at, there are some additional constraints.
+    * All edges are undirected and have a non-negative weight or cost, corresponding to the cost incurred by breaking that edge
+    * Nodes do not have a weight or cost.
+    * All nodes should be connected - that is, it should be possible to reach any node from any other node by following edges.
+    Frequently, a problem that doesn't initially satisfy these constraints can be made to do so simply by shifting weights around, adding a weight offset to each edge, or by adding new zero-weight or infinite-weight edges.
+
+
+*** Solving Minimum Cut
+    The min-cut problem has a dual (a different problem with identical solution), known as the max-flow problem, and max-flow is easier to think about and to solve. The max-flow problem re-imagines the graph as a series of pipes, with the objective of carrying fluid from node s to node t (usually referred to as the source node and the sink node respectively). Each edge's weight represents its capacity (maximum flow rate), and we wish to find the maximum flow that can occur out of the source and in to the sink, keeping in mind that as in real life, flow must be conserved.
+
+// examples of max flow
+
+    To solve max-flow, a simple intuitive algorithm is just to find a path from source to sink, and send the maximum flow through that path. Then, reduce the edge weights along that path by that flow, and repeat the process until no path with nonzero flow can be found. More details can be found at wikipedia, along with a whole host of other algorithms. The key takeaway however, is that maximum flow can be solved efficiently, in polynomial time.
+
+    So, back to min-cut. Why is the min-cut solution the same as the max-flow solution? Max-flow and min-cut have the same solution because a min-cut must interrupt all the flow of fluid between the source and the sink. For max-flow there is some parallel set of edges that are fully saturated (otherwise we could still increase the flow), and act as a bottleneck for the flow. By definition then, that bottleneck is the cheapest place to cut edges and sever the flow.
+
+*** Min-cut on Images
+    We can translate a standard image into a graph by simply treating each pixel as a node, with edges between adjacent pixels. However, in most cases we won't have any 2 special pixels that we want to represent by source and sink, so we'll need a slighly more clever formulation to represent most problems. Considering the common scenario where we want to label each pixel of an image as either l_0 or l_1 (e.g. for foreground vs background segmentation), we arbitrarily create a source node representing l_0, and a sink node representing l_1. The l_0 and l_1 nodes then each get an edge to every single pixel, with edge weight representing the cost of NOT assigning that pixel to that label. We can also add edges between any pair of pixels, representing the cost of those 2 pixels having different labels. By definition, the min-cut of this graph will cut edges such that every pixel is connected either the l_0 node or the l_1 node, producing the lowest-cost labeling.
+
+
+
+
    here is some text
    \begin{equation}
    \label{eq:1}
