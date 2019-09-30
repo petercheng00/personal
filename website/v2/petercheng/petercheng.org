@@ -3,7 +3,7 @@
 # These macros save on typing for linking to external files. Unfortunately the macros can't go inside the brackets, so we define the entire bracket syntax as a macro
 #+MACRO: external_link [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1][$2]]
 #+MACRO: external_image [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1]]
-
+#+MACRO: other_repo_image [[https://raw.githubusercontent.com/petercheng00/$1]]
 * Pages
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: ./
@@ -24,6 +24,38 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Analyzing an Email Bomb Attack
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: email_bomb
+   :EXPORT_DATE: 2019-09-29
+   :END:
+   On the morning of August 12, I was the target of an email bombing, where my email inbox received a huge volume of emails, peaking at over 1 email/second. This lasted almost exactly 24 hours.
+
+The intent was to overwhelm my email provider and/or my attention, as the attacker had compromised one of my online accounts and wanted to carry out some actions that would have sent email notifications (e.g. transferring money out of an account). Fortunately, gmail had no problems with the volume, and successfully routed >90% of these emails to the spam folder. I was also able to discover the attacked account and in the end no harm was done.
+
+However, many of these emails I was bombarded with were due to my email being signed up to mailing lists. As a result, even though the attack is over, I continue to receive hundreds of daily newsletter emails each day. This post will be about analyzing the corpus of emails in my spam folder, out of my own curiosity. A later post will focus on programmatic unsubscriptions.
+*** Downloading Emails
+    The first task is to download email data. This can be done fairly easily with gmail's public API. The code I use throughout this post will be uploaded to [[https://github.com/petercheng00/mailBombAnalysis][this repo]]. The API can return email messages with varying amounts of detail, where more detail generally requires more indirections and time.
+
+I decided to just grab 4 fields: ~internalDate~, ~From~, ~Reply-To~, and ~Subject~. ~internalDate~ is the time an email was received, and ~From~ and ~Reply-To~ are fields to identify the sender (though are not required to be set).
+*** Email Rate
+    With ~internalDate~, I can plot the frequency of emails arriving over time. Note the logarithmic y-axis.
+    {{{other_repo_image(mailBombAnalysis/master/email_rate.jpg)}}}
+    Before August 12, I rarely received emails to the spam folder, never more than 1/hour. Then, a surge of emails, reaching 3719 spam emails per hour at its peak. Afterwards, there's a somewhat-regular pattern to the email frequency, still far above the initial rate.
+    {{{other_repo_image(mailBombAnalysis/master/email_rate2.jpg)}}}
+    Now, weeks later, it appears to be holding fairly steady, still peaking up to 10 spam emails per hour each day.
+
+*** Who are the Offenders?
+    Most of the emails received on August 12 were welcome emails, thanking me for joining their mailing list. Many of these emails also asked me to click a link to confirm subscription, in order to receive further emails, which is a good practice. However, many emails did not have this process, and these are the offenders whose emails I continue to receive. Let's see if we can identify any patterns based on the ~From~ and ~Reply-To~ fields.
+
+    I intended to compare the emails that came in on August 12 vs. the recurring emails since, but unfortunately the code I used to gather the August 12 emails had a bug, only now discovered. And by now gmail has cleaned up my spam folder, making those messages no longer available. So we can only look at the recurring emails. These are counts from different parts of email addresses for the month of September.
+    {{{other_repo_image(mailBombAnalysis/master/domains.jpg)}}}
+    Big 5 is perhaps the most familiar name to me (la-croix.com is not the beverage).
+    {{{other_repo_image(mailBombAnalysis/master/names.jpg)}}}
+    Steve leads the pack as an actual name.
+    {{{other_repo_image(mailBombAnalysis/master/tld.jpg)}}}
+    No surprises here.
+
 ** Graph Cuts and Alpha Expansion for Image Processing
    :noexport:
    :PROPERTIES:
