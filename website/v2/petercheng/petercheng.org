@@ -24,38 +24,108 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
-** Analyzing an Email Bomb Attack
+** Email Bomb
    :PROPERTIES:
    :EXPORT_FILE_NAME: email_bomb
    :EXPORT_DATE: 2019-09-29
    :END:
-   On the morning of August 12, I was the target of an email bombing, where my email inbox received a huge volume of emails, peaking at over 1 email/second. This lasted almost exactly 24 hours.
+   On August 12, for about 24 hours my email inbox was flooded with emails, peaking at over 1 email/second. This type of attack is known as an [[https://en.wikipedia.org/wiki/Email_bomb][email bomb]], and the intent is to overwhelm email providers and/or user attention as cover for other simultaneous attacks (which might send emails from password changes, online purchases, etc.). Fortunately, gmail had no problems with the volume, and successfully routed >95% of these emails to the spam folder. I was also able to catch the other attack as it happened and in the end their effort was unsuccessful.
 
-The intent was to overwhelm my email provider and/or my attention, as the attacker had compromised one of my online accounts and wanted to carry out some actions that would have sent email notifications (e.g. transferring money out of an account). Fortunately, gmail had no problems with the volume, and successfully routed >90% of these emails to the spam folder. I was also able to discover the attacked account and in the end no harm was done.
+The attacker did not use their own computing resources to send emails - instead, the attacker had a list of mailing lists, and used a script to subscribe my email address to each one. Each mailing list then sent me a welcome email, which multiplied by tens of thousands of mailing lists, quickly flooded my inbox. This makes email bombs difficult to block, as there's no singular source for the emails, and furthermore many of these mailing lists belong to legitimate businesses.
 
-However, many of these emails I was bombarded with were due to my email being signed up to mailing lists. As a result, even though the attack is over, I continue to receive hundreds of daily newsletter emails each day. This post will be about analyzing the corpus of emails in my spam folder, out of my own curiosity. A later post will focus on programmatic unsubscriptions.
+And unfortunately, as an unwitting new member of these countless email lists, I now receive a steady stream of unwanted daily newsletters, promotional offers, blog posts, etc. Most of them do go to the spam folder, but that still means any attempt to search for legitimate emails in my spam folder is fruitless. So to address this, I'm going to create an automated way to unsubscribe from emails.
+
 *** Downloading Emails
-    The first task is to download email data. This can be done fairly easily with gmail's public API. The code I use throughout this post will be uploaded to [[https://github.com/petercheng00/mailBombAnalysis][this repo]]. The API can return email messages with varying amounts of detail, where more detail generally requires more indirections and time.
+    Email data can be easily downloaded via the gmail api. I'll be using the Python version. The first step is to get a gmail api service object, which can just be copied from the tutorial code and will end in something like this.
+    #+BEGIN_SRC python
+    service = build('gmail', 'v1', credentials=creds)
+    #+END_SRC
 
-I decided to just grab 4 fields: ~internalDate~, ~From~, ~Reply-To~, and ~Subject~. ~internalDate~ is the time an email was received, and ~From~ and ~Reply-To~ are fields to identify the sender (though are not required to be set).
+    Next let's figure out the email label id corresponding to the spam folder.
+    #+BEGIN_SRC python
+    labels = service.users().labels().list(userId='me').execute().get('labels', [])
+    spam_label_id = next(label['id'] for label in labels if label['name'] == 'SPAM')
+    #+END_SRC
+
+    Each email is referenced by a message object, and we can only request a page of messages at a time. Each response provides the necessary information to request the next page, so we use a loop to accumulate up the messages.
+    #+BEGIN_SRC python
+    def getMessagesWithLabels(service, user_id, label_ids):
+        response = service.users().messages().list(userId=user_id,
+                                                   labelIds=label_ids).execute()
+        messages = []
+        if 'messages' in response:
+            messages.extend(response['messages'])
+            while 'nextPageToken' in response and not DEBUG:
+                print('\rFound %d messages' % len(messages), end='') # carriage return to overwrite
+                page_token = response['nextPageToken']
+                response = service.users().messages().list(userId=user_id,
+                                                           labelIds=label_ids,
+                                                           pageToken=page_token).execute()
+                messages.extend(response['messages'])
+        print() # new line after carriage returns
+        return messages
+    #+END_SRC
+    #+BEGIN_SRC python
+    min_messages = getMessagesWithLabels(service, 'me', [spam_label_id])
+    #+END_SRC
+
+    These message objects only contain identifiers - getting any actual email information requires making further queries using those ids. Below, we gather up the timestamp and some header fields from each email.
+    #+BEGIN_SRC python
+    # The data we will gather
+    data = [['epoch_ms', 'from', 'reply-to', 'subject']]
+
+    # The callback for each message
+    def getMsgData(rid, message, exception):
+        if exception is not None:
+            return
+        epoch_ms = int(message['internalDate'])
+        fromx = ''
+        reply_to = ''
+        subject = ''
+        headers = message['payload']['headers']
+        for h in headers:
+            if h['name'] == 'From':
+                fromx = h['value']
+            elif h['name'] == 'Reply-To':
+                reply_to = h['value']
+            elif h['name'] == 'Subject':
+                subject = h['value']
+        data.append([epoch_ms, fromx, reply_to, subject])
+
+    # Batching requests is faster
+    batcher = service.new_batch_http_request()
+    for i, mm in enumerate(min_messages):
+        if (i % 100 == 0 and i != 0):
+            print(f'\rRequesting msg {i}', end='')
+            batcher.execute()
+            batcher = service.new_batch_http_request()
+        batcher.add(service.users().messages().get(userId='me', id=mm['id'], format='metadata'), callback=getMsgData)
+    print() # new line after carriage returns
+    # Handle last set
+    batcher.execute()
+
+    with open('data.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(data)
+    #+END_SRC
+
+
 *** Email Rate
-    With ~internalDate~, I can plot the frequency of emails arriving over time. Note the logarithmic y-axis.
+    With this data in hand, we can make some plots. Here's the rate of emails/hour over the entire month. Note the logarithmic y-axis.
     {{{other_repo_image(mailBombAnalysis/master/email_rate.jpg)}}}
-    Before August 12, I rarely received emails to the spam folder, never more than 1/hour. Then, a surge of emails, reaching 3719 spam emails per hour at its peak. Afterwards, there's a somewhat-regular pattern to the email frequency, still far above the initial rate.
+    Before August 12, I rarely received emails to the spam folder, and never more than 1/hour. Then, a surge of emails, reaching 3719 spam emails per hour at its peak. Afterwards, there's a regular pattern to the email frequency, still far above the initial rate.
     {{{other_repo_image(mailBombAnalysis/master/email_rate2.jpg)}}}
-    Now, weeks later, it appears to be holding fairly steady, still peaking up to 10 spam emails per hour each day.
+    The rate and pattern hold fairly steady through September.
 
 *** Who are the Offenders?
-    Most of the emails received on August 12 were welcome emails, thanking me for joining their mailing list. Many of these emails also asked me to click a link to confirm subscription, in order to receive further emails, which is a good practice. However, many emails did not have this process, and these are the offenders whose emails I continue to receive. Let's see if we can identify any patterns based on the ~From~ and ~Reply-To~ fields.
-
-    I intended to compare the emails that came in on August 12 vs. the recurring emails since, but unfortunately the code I used to gather the August 12 emails had a bug, only now discovered. And by now gmail has cleaned up my spam folder, making those messages no longer available. So we can only look at the recurring emails. These are counts from different parts of email addresses for the month of September.
+    The emails I received on August 12 were mostly welcome emails. Because the volume of emails I receive now is significantly lower, it can be assumed that many of those initial emails either required subscription confirmation, or they were inactive lists used for spam only. Regardless, any emails I continue to receive come from mailing lists with no confirmation required. Let's see who the senders are for these emails, based on September data. This isn't that meaningful, as most emails follow a predictable schedule (1x or 2x a day, only weekdays, etc.)
     {{{other_repo_image(mailBombAnalysis/master/domains.jpg)}}}
-    Big 5 is perhaps the most familiar name to me (la-croix.com is not the beverage).
+    Big 5 is the most familiar name to me (la-croix.com is not the beverage).
     {{{other_repo_image(mailBombAnalysis/master/names.jpg)}}}
-    Steve leads the pack as an actual name.
-    {{{other_repo_image(mailBombAnalysis/master/tld.jpg)}}}
-    No surprises here.
+    I guess people who do marketing for online businesses are most likely to be named Steve or Holly.
 
+*** Automated Unsubscription
+    The plan is to download the body of each email, search for hyperlinks that contain the word "unsubscribe", and then click on them. For some lists this will not be enough, but I will try this first and see how successful it is first.
 ** Graph Cuts and Alpha Expansion for Image Processing
    :noexport:
    :PROPERTIES:
