@@ -29,14 +29,15 @@
    :EXPORT_FILE_NAME: email_bomb
    :EXPORT_DATE: 2019-09-29
    :END:
-   On August 12, for about 24 hours my email inbox was flooded with emails, peaking at over 1 email/second. This type of attack is known as an [[https://en.wikipedia.org/wiki/Email_bomb][email bomb]], and the intent is to overwhelm email providers and/or user attention as cover for other simultaneous attacks (which might send emails from password changes, online purchases, etc.). Fortunately, gmail had no problems with the volume, and successfully routed >95% of these emails to the spam folder. I was also able to catch the other attack as it happened and in the end their effort was unsuccessful.
+   {{{other_repo_image(mailBombAnalysis/master/email_rate.jpg)}}}
+   On August 12, for about 24 hours my email inbox was flooded with emails, peaking at over 1 email/second. This type of attack is known as an [[https://en.wikipedia.org/wiki/Email_bomb][email bomb]], and the intent is to overwhelm email providers and/or user attention as cover for other simultaneous attacks (which might send emails from password changes, online purchases, etc.).
 
-The attacker did not use their own computing resources to send emails - instead, the attacker had a list of mailing lists, and used a script to subscribe my email address to each one. Each mailing list then sent me a welcome email, which multiplied by tens of thousands of mailing lists, quickly flooded my inbox. This makes email bombs difficult to block, as there's no singular source for the emails, and furthermore many of these mailing lists belong to legitimate businesses.
+The attacker did not use their own computing resources to send emails - instead, the attacker had a list of mailing lists, and used a script to subscribe my email address to each one. Each mailing list then sent me a welcome email. This makes email bombs difficult to prevent, as there's no single source to block, and furthermore many of these mailing lists belong to legitimate businesses.
 
-And unfortunately, as an unwitting new member of these countless email lists, I now receive a steady stream of unwanted daily newsletters, promotional offers, blog posts, etc. Most of them do go to the spam folder, but that still means any attempt to search for legitimate emails in my spam folder is fruitless. So to address this, I'm going to create an automated way to unsubscribe from emails.
+Although the attack occurred many weeks ago, I'm still an unwitting member of these countless email lists, and have received a steady stream of unwanted daily newsletters, promotional offers, blog posts, etc. Most of them do go to the spam folder, but that still means any attempt to search for legitimate emails in my spam folder is fruitless. So to address this, I'm going to write some code to click on all the unsubscribe links in emails in my spam folder.
 
 *** Downloading Emails
-    Email data can be easily downloaded via the gmail api. I'll be using the Python version. The first step is to get a gmail api service object, which can just be copied from the tutorial code and will end in something like this.
+    Email data can be easily downloaded via the gmail api. I'll be using the Python version. The first step is to get a gmail api service object, which can just be copied from the [[https://developers.google.com/gmail/api/quickstart/python][quickstart tutorial code]] and will likely end in something like this.
     #+BEGIN_SRC python
     service = build('gmail', 'v1', credentials=creds)
     #+END_SRC
@@ -69,7 +70,7 @@ And unfortunately, as an unwitting new member of these countless email lists, I 
     min_messages = getMessagesWithLabels(service, 'me', [spam_label_id])
     #+END_SRC
 
-    These message objects only contain identifiers - getting any actual email information requires making further queries using those ids. Below, we gather up the timestamp and some header fields from each email.
+    These message objects only contain identifiers - getting any actual email information requires making further queries using those ids. Before downloading the full message bodies, let's first try grabbing some basic metadata.
     #+BEGIN_SRC python
     # The data we will gather
     data = [['epoch_ms', 'from', 'reply-to', 'subject']]
@@ -118,14 +119,58 @@ And unfortunately, as an unwitting new member of these countless email lists, I 
     The rate and pattern hold fairly steady through September.
 
 *** Who are the Offenders?
-    The emails I received on August 12 were mostly welcome emails. Because the volume of emails I receive now is significantly lower, it can be assumed that many of those initial emails either required subscription confirmation, or they were inactive lists used for spam only. Regardless, any emails I continue to receive come from mailing lists with no confirmation required. Let's see who the senders are for these emails, based on September data. This isn't that meaningful, as most emails follow a predictable schedule (1x or 2x a day, only weekdays, etc.)
+    The emails I received on August 12 were mostly welcome emails. Because the volume of emails I receive now is significantly lower, it can be assumed that most mailing lists required subscription confirmation. Let's see who is sending emails without subscription confirmation, based on September data. This isn't that surprising, as the vast majority of lists are sending emails roughly once per weekday.
     {{{other_repo_image(mailBombAnalysis/master/domains.jpg)}}}
-    Big 5 is the most familiar name to me (la-croix.com is not the beverage).
     {{{other_repo_image(mailBombAnalysis/master/names.jpg)}}}
-    I guess people who do marketing for online businesses are most likely to be named Steve or Holly.
+    Also unsurprising, there's not much variation in the email names, though I guess Steve and Holly are the most likely names for email marketers.
 
 *** Automated Unsubscription
-    The plan is to download the body of each email, search for hyperlinks that contain the word "unsubscribe", and then click on them. For some lists this will not be enough, but I will try this first and see how successful it is first.
+    To actually unsubscribe, we'll need to download each email's contents, search for the unsubscribe link, and click on it. To get the full message body we need to update the message request to ~format='full'~.
+    #+BEGIN_SRC python
+    batcher.add(service.users().messages().get(userId='me', id=mm['id'], format='full'), callback=getMsgData)
+    #+END_SRC
+    The message contents as an html string can be obtained as follows
+    #+BEGIN_SRC python
+    def getMsgData(rid, message, exception):
+        if exception is not None:
+            return
+        try:
+            msg = next(m for m in message['payload']['parts'] if m['mimeType'] == 'text/html')
+        except:
+            return
+        msg_data = msg['body']['data']
+        msg_html = base64.urlsafe_b64decode(msg_data.encode('ASCII')).decode('utf-8')
+    #+END_SRC
+    We'll cast a wide net by collecting any and all links that contain "unsubscribe" in their text. Python's built-in html parser steps through tags and the data between tags, so we can use it to extract all links fitting our criteria.
+    #+BEGIN_SRC python
+    class UnsubLinkParser(HTMLParser):
+        a_href = ''
+        unsub_links = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == 'a':
+                for attr in attrs:
+                    if attr[0] == 'href':
+                        self.a_href = attr[1]
+                        break
+
+        def handle_endtag(self, tag):
+            if tag == 'a':
+                self.a_href = ''
+
+        def handle_data(self, data):
+            if self.a_href != '' and 'unsubscribe' in data.lower():
+                self.unsub_links.append(self.a_href)
+                self.a_href = ''
+    #+END_SRC
+
+    With our links gathered up, we can simply visit each one in turn:
+    #+BEGIN_SRC python
+    for link in parser.unsub_links:
+        urllib.request.urlopen(link)
+    #+END_SRC
+    Some unsubscribe links will require further action, such as clicking a 'submit' button. For now let's ignore those, and see how much of a dent this makes in the email rate.
+
 ** Graph Cuts and Alpha Expansion for Image Processing
    :noexport:
    :PROPERTIES:
