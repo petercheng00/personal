@@ -1,4 +1,4 @@
-baseURL = "http://petercheng.net/"
+baseURL = "https://petercheng.net/"
 languageCode = "en-us"
 title = "Peter Cheng"
 theme = "hyde-hyde"
