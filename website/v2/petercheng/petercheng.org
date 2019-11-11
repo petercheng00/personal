@@ -3,6 +3,7 @@
 # These macros save on typing for linking to external files. Unfortunately the macros can't go inside the brackets, so we define the entire bracket syntax as a macro
 #+MACRO: external_link [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1][$2]]
 #+MACRO: external_image [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1]]
+#+MACRO: other_repo_link [[https://raw.githubusercontent.com/petercheng00/$1][$2]]
 #+MACRO: other_repo_image [[https://raw.githubusercontent.com/petercheng00/$1]]
 * Pages
   :PROPERTIES:
@@ -17,8 +18,9 @@
 
    -----
 
-   {{{external_link(petercheng_resume.pdf, Click here for a pdf version of my resume)}}}
-    #+INCLUDE: "../../../resume/resume.org" :lines "35-"
+   {{{other_repo_link(personal/master/resume/resume.pdf, Click here for a pdf version of my resume)}}}
+   # We don't want the header of the resume org file to show up
+   #+INCLUDE: "../../../resume/resume.org" :lines "38-"
 
 * Posts
   :PROPERTIES:
