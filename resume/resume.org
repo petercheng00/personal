@@ -41,12 +41,12 @@ http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
 * Selected Work Experience
 ** Matterport: Staff Computer Vision Engineer (2015 - current)
 - Parallax-tolerant image stitching enabling smartphone-based 3d capture
-- Neural network and infrastructure work on monocular depth prediction
+- Neural network and infrastructure design on monocular depth prediction
 - Spherical and spatially-varying color processing (e.g. hdr tonemapping, color constancy)
-- Poisson, mesh-based, and TSDF voxel-based approaches for surface reconstruction and meshing
+- Poisson, mesh-based, and voxel-based approaches for surface reconstruction
 - Sensor and lens modeling, calibration, and live correction for RGB and active depth systems
 - GPU-optimized color and depth capture and processing algorithms
-- Systems-level design for Pro 1 and Pro 2, including camera, wifi, gps, etc.
+- Systems-level design for Pro 1 and Pro 2, including camera architecture, wifi, gps, etc.
 ** Amazon Lab126: Emerging Technologies Team (2013 - 2014)
 - Machine learning models for motion gesture recognition on the Fire phone
 - Frameworks for quantifying accuracy and usability of 3d and gesture-based interfaces
