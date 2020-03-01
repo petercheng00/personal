@@ -26,6 +26,38 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Literate Emacs Init with Org Babel
+:PROPERTIES:
+:EXPORT_FILE_NAME: emacs_init
+:EXPORT_DATE: 2020-02-29
+:END:
+Over the past few years, my emacs init files have gotten a bit out of hand. My once-cleanly-categorized files have started to blend together, and there's a fair amount of dead code, as I've made many significant changes to my emacs tools (e.g. I've switched static analyzers and terminals basically each year).
+
+*** Org Babel
+Org-mode is a great way to mix inline code with general writing (and it's what this website is built with), so it's a natural fit for managing and documenting my init files as well. The basic idea is to write all init code inside an org file, where the lisp code to be executed is inlined inside code blocks like so:
+
+#+BEGIN_SRC markdown
+,* Here's a category heading
+    Description of below code here
+    ,#+BEGIN_SRC emacs-lisp
+      (some-lisp-code)
+    ,#+END_SRC emacs-lisp
+    More description for more code here
+    ,#+BEGIN_SRC emacs-lisp
+      (some-more-lisp-code)
+    ,#+END_SRC
+#+END_SRC
+
+Org-mode's Babel can then parse these files and extract the code blocks out into a nice clean source file for emacs to read natively. This process is called "tangling", and it has some runtime cost, but only needs to be run after file changes.
+
+To get started with this conversion, I simply wrapped all of my lisp code inside a giant src block inside a new ~config.org~ file. Then, I simply set ~(org-babel-load-file "~/emacs/config.org")~ in ~.emacs~. With this done, it's been fairly straightforward to break my init code into more manageable chunks, as having everything back together in a single file makes it easier to get a high-level view of how things are organized, and also discover plenty of old and unused code.
+
+*** Literate Config
+With my config now being in org-mode, [[https://github.com/petercheng00/emacs/blob/master/config.org][it renders nicely on github]], making it easy to reference, which also forces me to keep things well-documented and organized.
+
+*** Straight.el
+The other major change I've made is a transition from the built-in ~package.el~ to ~straight.el~, though I'm still using ~use-package~ as a front-end. Straight.el already has [[https://github.com/raxod502/straight.el#tldr-1][a great list of pros/cons of why to use it]], but for me the chief benefit is reproducibility, and reducing conflicts when I sync my config across machines. There's also a nice feeling of cleanliness, where all the packaging infrastructure is now basically git, instead of the somewhat opaque MELPA installation process.
+
 ** Mixed-Precision Neural Network Training with APEX
    :PROPERTIES:
    :EXPORT_FILE_NAME: nvidia_apex
@@ -652,7 +684,7 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
 *** config.toml
     For my intended setup, there are only 2 files I'll be working with. The first one is ~config.toml~, which stores global hugo settings, as well as parameters for my chosen theme. I'm not really sure how to find all the toggle-able parameters for a given theme besides digging through the theme code or looking at example sites.
 
-    As an early example of why I'm using org mode, I can directly insert a live copy of my ~config.toml~ file below, simply by including the line:
+    As an early example of why I'm using org-mode, I can directly insert a live copy of my ~config.toml~ file below, simply by including the line:
 
     ~#+INCLUDE: "config.toml" src ini~
     #+INCLUDE: "config.toml" src ini
