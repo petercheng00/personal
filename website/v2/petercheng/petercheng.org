@@ -26,6 +26,36 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Understanding Stock Options
+:PROPERTIES:
+:EXPORT_FILE_NAME: stock_options
+:EXPORT_DATE: 2020-04-04
+:END:
+*Disclaimer: this post contains my current best understanding of topics, I am not an expert and make no guarantees*
+*** The Basics
+    A stock option gives the owner of the option the ability to purchase a given stock at a given purchase price. This process is known as "exercising" an option. Stock option grants are commonly given to startup employees, and contain 4 main pieces of information.
+    1. How many options are being granted. E.g. a stock option grant of 10,000 options allows for the optional purchase of up to 10,000 shares.
+    2. The strike price of the options. This is the price per share that the owner of the options must pay to purchase shares. This price stays fixed, even if the company's valuation changes over time.
+    3. Vesting schedule. The stock options being granted do not enter into your possession (and thus cannot be used to purchase shares) until they vest. (Except in the case of early exercise)
+    4. Option type. Options are either incentive stock options (ISOs), or non-qualified stock options (NSOs). ISOs can only be owned by employees, and employees leaving a company must exercise ISOs within 3 months or they are forfeited. NSOs do not have such restrictions. At some companies, ISOs can be converted to NSOs, which can allow departing employees to avoid the 3-month deadline. If exercised ISOs are sold at least 2 years after grant and 1 year after exercise, this counts as a qualifying disposition, which has some tax benefits over NSOs that will be discussed below.
+*** Exercising Stock Options
+    Once an option is vested, it can be exercised by paying the strike price. At private companies, shares cannot be sold for cash, so exercising is making the bet that the upfront cost of exercise (plus associated tax costs) is worth the future value of the shares once they can be liquidated (as well as the time and opportunity cost).
+***** Early Exercise
+    Some companies allow for early exercise - this allows an option to be exercised before it has vested (which confers all the usual results of owning a share). The direct cost of exercising does not change, but exercising early generally means exercising when a company has a lower valuation, which can reduce the associated tax costs covered in the next section. To receive these tax benefits, an 83(b) form must be submitted within 30 days of the early exercise event. Exercising early also means shares are owned earlier, and shares owned for longer may get favorable tax treatment when sold. If an employee leaves before their early-exercised options are vested, usually the company will purchase the unvested shares back at the original strike price.
+*** Tax Implications
+    Taxes are owed when an option is exercised, as well as when a share is sold. The former can be quite surprising to startup employees, as upon exercising, they may owe a large tax bill, despite not being able to sell their shares to help pay that bill. ISOs and NSOs are taxed differently at both events, as we'll cover next.
+***** Taxes Owed when Exercising
+     To calculate taxes owed upon exercising, the strike price must be compared against the fair market value (FMV) of the stock. For a private company, this is determined by its last 409A valuation, which usually occurs every 12 months, and also upon significant events such as fundraising. Note that when private company valuations are being discussed, these are often post-money valuations based on the prices VCs are paying. VCs are paying for preferred stock however, which is priced significantly higher than common stock. FMV is thus much lower than the numbers often mentioned around company valuations.
+
+     ~FMV - [strike price]~ at the time of exercise is referred to as the bargain element, which is the value that matters for taxes. Note that this is why early exercise can be a significant cost-savings, as exercising immediately after an option grant means FMV may be equal to strike price, leading to zero bargain element. For NSOs, the bargain element is taxed as ordinary income. For ISOs the bargain element is not taxed at exercise time, but may be taxed at stock sale time in the event of a non-qualifying disposition (sold within 2 years of 1 grant or within 1 year of exercise). For ISOs that are not sold the same year they are exercised (i.e. all qualifying dispositions), the bargain element is subject only to AMT (alternative minimum tax).
+***** AMT for ISOs
+      AMT, as the name implies, is an alternative way of calculating taxes, and if AMT is higher than regular tax calculations, AMT must be paid instead. To roughly estimate AMT, first add the bargain element to other income, then subtract the AMT exclusion amount, and then multiply the result by the AMT tax rate. If the result of this computation is higher than the amount of taxes normally paid, then this should be factored as an extra cost of exercising options. 
+
+      However, paying AMT due to ISO exercise also grants AMT credit, of the amount corresponding to the ISO exercise. In future years, if the regular tax owed is greater than AMT, AMT credit can be used to reduce the regular tax bill until reaching the AMT as a lower limit. AMT credit does not expire, so for people who don't normally pay AMT, tax costs for ISO exercising can be entirely recouped over time.
+
+***** Taxes Owed when Selling Shares
+     Stock sales are taxed as either short-term or long-term capital gains, applied to the difference between sell price and exercise price. Exercised NSOs simply follow the same rules as normal stock sales. Exercised ISOs on the other hand, must follow the rules for qualifying dispositions (held for 2 years after grant, 1 year after exercise) to receive long-term capital gains treatment. Otherwise, ISO sales that do not qualify are subject to short-term capital gains, and even worse, as discussed above, the bargain element also gets taxed as ordinary income.
+
 ** Literate Emacs Init with Org Babel
 :PROPERTIES:
 :EXPORT_FILE_NAME: emacs_init
