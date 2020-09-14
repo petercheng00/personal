@@ -26,6 +26,52 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Ergonomic Split Keyboard Build (Iris Rev 4)
+:PROPERTIES:
+:EXPORT_FILE_NAME: iris_build
+:EXPORT_DATE: 2020-09-12
+:END:
+{{{external_image(iris_build/finished.jpg)}}}
+*** Keyboard Choice
+I'm making the move to a split ergonomic keyboard as a reponse to occasional wrist pain when working at a computer. Splitting the keyboard allows for much more freedom in wrist positions and angles, especially if the board is tented.
+
+Some split boards simply take a standard keyboard layout and split it in half (e.g. Mistel Barocco, Quefrency). Other boards instead use a columnar layout, usually with thumb keys as well. The Ergodox is likely the most well-known example in this family. As a frequent thumb-alt user due to Emacs, the thumb clusters made a lot of sense to me, so I looked in that direction.
+
+A common complaint of the ergodox is that its thumb keys are a stretch for many users to reach. [[https://jhelvy.shinyapps.io/splitkbcompare/][This website]] is an excellent way of comparing different keyboard layouts, and by printing out a few overlays, I found the Iris to be a good fit. Two other very strong reasons for me to pick the Iris were that it's a very popular board, with plenty of support and hardware availability, and also that its latest revision comes with all the components already soldered on (except switches), making it simple to build.
+*** Components
+The key decisions to make are which switches and which keycaps to use. I went with Aqua Zilents, as they seem highly recommended for tactility without too much noise. I also picked up some Tribosys 3203 lube to further reduce switch noise, and some Mill-Max 0305 sockets so switches could be replaced without (de)soldering. For the keycaps, I chose MDA Big Bang 2.0, which is one of the few keycap sets that is sculpted per-row in a manner appropriate for split keyboards.
+{{{external_image(iris_build/components.jpg)}}}
+The full list of parts:
+ * MDA Big Bang 2.0 ortholinear keycaps
+ * 65 x Aqua Zilent 62 g switches
+ * Tribosys 3203 lube
+ * 150 x Mill-Max sockets (not pictured above)
+ * 1 x rotary encoder with knob from Keebio (2 are supported, but I couldn't think of a use for a 2nd one)
+ * FR4 plates for Iris from Keebio
+ * PCBs for Iris from Keebio
+ * TRRS cable (used to link the 2 halves together)
+ * USB-C cable (not pictured above)
+*** The Build
+[[https://docs.keeb.io/iris-rev3-build-guide/][A comprehensive build guide]] for the Iris is already available, but I learned a few things during the process that might be worth sharing.
+ * While dedicated switch opening tools exist, I found tweezers work quite well, and significantly better than a single flat-head screwdriver.
+   {{{external_image(iris_build/opening.jpg)}}}
+
+ * For the lubing process, I followed [[https://www.youtube.com/watch?v=qSgPKPoFo2k][this guide from Taeha Types]].
+   {{{external_image(iris_build/lubing.jpg)}}}
+
+ * Mill-Max sockets are designed for the thinner pins on most switches. The Zilents though, have one pin that is wider. With some force, they can be made to fit, but after I snapped one pin, I discovered two things that help.
+   {{{external_image(iris_build/pins.jpg)}}}
+   A bit of sandpapering on the wide tips of the pins makes a large difference. It's hard to see in the image above, but the right edge of the wide pin on the right switch has been sanded off, making it easier to slide the Mill-Max socket on. I found that sanding just one side was enough.
+   {{{external_image(iris_build/millmax.jpg)}}}
+   Unless you want to spend a lot of time sanding, some amount of force is still usually needed. I found the most secure method to apply force without risk of bending the pins is to push down with thumbnails on the lip on opposite sides of the socket.
+
+ * While Mill-Max sockets are supposed to be soldered in, I tested out the keyboard before soldering, and found that all the switches are working fine. Soldering is definitely more secure, especially since without solder, the PCB is just held up by friction. I don't have the best soldering setup though, so I plan to continue unsoldered unless any problems arise.
+
+*** Initial Impressions
+The biggest surprise for me was that my thumb position is actually different on the columnar layout vs. on a normal staggered keyboard. I had intended to use the middle thumb key for space bar, but I find the farthest one a better fit. The other surprise is that columnar layout is quite easy to get used to. After only 1 day, my typing is basically back up to speed for a-z keys. I'm still fiddling with the keymapping, and still need to figure out tenting hardware, but overall I'm quite happy typing on this board, and MDA + Zilents feel great to type on.
+{{{external_image(iris_build/finished2.jpg)}}}
+
+
 ** Understanding Stock Options
 :PROPERTIES:
 :EXPORT_FILE_NAME: stock_options
