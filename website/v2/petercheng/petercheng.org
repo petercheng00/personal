@@ -14,7 +14,7 @@
    :EXPORT_FILE_NAME: about
    :EXPORT_HUGO_TYPE: about
    :END:
-   I'm a computer vision engineer based in the San Francisco Bay Area. I'm currently at Matterport, where I've worked on a variety of topics including image processing, point cloud alignment, surface reconstruction, and semantic segmentation. Previously, I worked at Amazon Lab126, and developed machine learning approaches for gesture recognition as well as analytics tools for face tracking. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
+   I'm a computer vision engineer in the San Francisco Bay Area. I'm currently at Iron Ox, where we're optimizing greenhouse farming to make quality produce more accessible. Previously, I spent 5 years at Matterport, making 3d technologies for capturing and visualizing 3d spaces available to everyday users. Before that, I worked at Amazon Lab126, focusing on 3d interfaces and interactions with mobile devices. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
 
    -----
 
@@ -26,6 +26,42 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** Ethernet over Coaxial Cable via MoCA
+:PROPERTIES:
+:EXPORT_FILE_NAME: moca
+:EXPORT_DATE: 2021-01-12
+:END:
+I recently used MoCA adapters to expand wifi coverage in a large house. MOCA allows me to pass an ethernet connection from my router into the house's coaxial cabling, and then place wireless access points at other coaxial terminals. In my mind, MOCA works better and is less well-known than mesh wifi and powerline, both of which I originally considered, so this post covers some basics on how it works.
+*** Why MoCA
+Here's the few approaches I considered.
+| Name      | Flexibility                                  | Speed                                                                  | Cost                                                        |
+|-----------+----------------------------------------------+------------------------------------------------------------------------+-------------------------------------------------------------|
+| Mesh Wifi | Can be placed anywhere                       | Theoretically very high, in practice limited by wifi congestion        | $300-$500 for cheaper setups, more for higher performance   |
+| Ethernet  | Most likely will have to run cables yourself | Maximum                                                                | Cables are cheap, running cables might not be               |
+| Powerline | Power outlets are usually in good places     | Very high between outlets on a clean shared circuit, less so otherwise | ~$50 for a pair of adapters                                 |
+| MoCA      | Many houses are wired with coaxial cable     | Moca 2.5 provides 2.5 Gbps shared between all adapters                 | ~$60 per adapter. Possibly minor costs for filter, splitter |
+
+Running ethernet through the house would have been a big project, and powerline adapters were tested and found to provide poor connection to the parts of the house that most needed additional wifi coverage. Given the prevalence of coaxial ports in the house, MoCA was a good choice.
+*** Required Components
+ * At least 2 [[https://www.amazon.com/gp/product/B07XYDG7WN][MoCA adapters]]. One will be used to connect your internet source to the coaxial cabling, the others will connect clients or access points to the coaxial cabling. Multiple adapters can be used together, and will properly switch and share bandwidth. I'm using 3 MoCA 2.5 adapters from goCoax. Note that many adapters, such as the goCoax adapter, have 2 coax ports, and internally contain a splitter. If you buy an adapter with just 1 coax port, and you are using your coaxial cabling for other applications, you'll need additional splitters.
+ * (Probably) [[https://www.amazon.com/gp/product/B00KO5KHSQ][A MoCA filter]]. This provides security by preventing your internet signals from leaving your house. This also strengthens the signals between your adapters, by reflecting the outgoing MoCA data back into the house. Some houses may already have a MoCA filter placed by the ISP, but if you're not sure, an extra one doesn't hurt.
+ * (Maybe) Coaxial and ethernet cables. Depending on your setup, you may need additional ethernet and coaxial cables. Any standard cables will work.
+ * (Maybe) [[https://www.amazon.com/gp/product/B07PRYWD81][A coax splitter]]. Most houses will already have a coax splitter. I replaced mine for 2 reasons. First, MoCA signals use 500-1500 MHz, so a splitter that accommodates that range will theoretically perform better. Second, my house had a 3-way splitter, with 3 other coax cables left unconnected. This 6-way splitter lets me have all 6 connected at once.
+ * (Maybe) [[https://www.amazon.com/gp/product/B06XHYNMVZ][Weather seals]]. My cable box is outside, so the new coax splitter required some new weather seals for better waterproofing.
+ * (Maybe) [[https://www.amazon.com/gp/product/B07C53S78W][Coax installation tools]]. Some of the coax cables I wanted to use were unterminated, so I needed to add plugs. To make matters more complicated, my coax cables are RG6Q, which is less common and wider. Tools for RG59 and RG6 are cheaper, but this set of tools supports RG6Q and worked great for me.
+*** Installation
+Cable box, before:
+{{{external_image(moca/cables_before.jpg)}}}
+Cable box, after:
+{{{external_image(moca/cables_after.jpg)}}}
+1. Install your MoCA filter. This should be connected to the cable that runs between your house and the external world. If your house only has one splitter, it'll be the cable that's on the solitary side of the splitter.
+2. Replace your splitter, if applicable.
+3. At each MoCA adapter location, unplug any devices currently using the coaxial cabling. If using the goCoax adapters, connect those devices to the "TV" port of the adapter. Then, connect the "MoCA" port of the adapter to the wall. If using an adapter with only one port, you'll need a 2-way splitter, with the single side plugged into the wall.
+4. If your MoCA adapter supports it, enable encryption. You should be safe with a MoCA filter, but the extra security has no overhead.
+5. Connect your router to an adapter via ethernet, connect your client network devices to the other adapters.
+*** Conclusion
+Previously, our single wireless router was barely reaching parts of the house, even with a 2.4Ghz network, and when multiple client devices were active, the wireless speeds would plumment. Now, I have 2 additional Unifi wireless APs connected via MoCA, and 5Ghz signals are available to the entire house, closely matching ISP speeds. The costs ended up being higher than I anticipated, due to the unexpected requirements of changing the splitter and connecting unterminated cables. That said, the performance/cost is likely still better than a mesh wifi setup, and ability to scale and upgrade wifi components in the future is better as well.
+
 ** Ergonomic Split Keyboard Build (Iris Rev 4)
 :PROPERTIES:
 :EXPORT_FILE_NAME: iris_build

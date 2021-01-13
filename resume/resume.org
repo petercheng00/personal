@@ -39,7 +39,8 @@ http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
 -----
 
 * Selected Work Experience
-** Matterport: Staff Computer Vision Engineer (2015 - current)
+** Iron Ox: Senior Computer Vision Engineer (2020 - present)
+** Matterport: Staff Computer Vision Engineer (2015 - 2020)
 - Parallax-tolerant image stitching enabling smartphone-based 3d capture
 - Neural network and infrastructure design on monocular depth prediction
 - Spherical and spatially-varying color processing (e.g. hdr tonemapping, color constancy)
