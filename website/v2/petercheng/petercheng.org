@@ -26,6 +26,102 @@
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
+** NCASE M1 SFFPC Build
+:PROPERTIES:
+:EXPORT_FILE_NAME: ncase_m1
+:EXPORT_DATE: 2021-08-15
+:END:
+{{{external_image(ncase_m1/desk.jpg)}}}
+I recently built a small form-factor PC in the NCASE M1, which involved a bit of research and configuration to reach its final state. My old desktop PC was in a large and heavy 50 liter case, with most of the interior being empty space. The NCASE M1 by contrast, is 12 liters in volume, and still supports high end components with great airflow and thermals.
+*** Case Choice
+SFFPCs are starting to become more mainstream, but there's still a limited selection compared to larger cases, and they often come with much higher prices, long delivery times, and/or limited component compatibility. The NCASE M1 was originally crowdfunded back in 2013, and was a big part of defining the genre. Today, there's many cases that are comparable or better in many regards - the NR200, Dan A4, Sliger 550/560, and Formd T1 being some of the top contenders I considered. Beyond small size, I also prioritize low noise at idle, and ease of maintenance, so this ruled out both custom and aio water cooling loops. The NCASE M1 ended up as a top choice because while it's not the smallest, it has great component compatibility and cooling options, was easily available, and has numerous guides and tips on optimal configuration.
+*** Components
+I transferred over an EVGA RTX 2080 from my old machine, but everything else was new. Based on looking at others' recent builds, I ended up with this [[https://pcpartpicker.com/list/kxZZYg][parts list]].
+*** CPU/Case Cooling
+{{{external_image(ncase_m1/side_off.jpg)}}}
+The NCASE M1 supports a few different layout options, e.g. PSU orientation, optional side/bottom fans. Reddit user M1AF has an [[https://www.reddit.com/r/sffpc/comments/irlrg8/m1afs_ncase_m1_build_guide_c14s_and_deshroud/][amazing guide]] where he tried many configurations and recorded their impact on component thermals. Since the posting of that guide, new ideas have popped up in the sffpc community, including the "wedge" layout. In the wedge layout, the left side case fans and the CPU heatsink fans act as intake, and an extra fan, "wedged" in place by the PSU, exhausts air out the right side. The wedge fan requires the PSU oriented in a way that ordinarily would only allow 1 side fan, but some careful positioning and foregoing some of the screws still allows both to fit.
+{{{external_image(ncase_m1/top_view.jpg)}}}
+*** GPU Cooling
+For GPU cooling, I found the stock EVGA cooler to be quite loud and hot under load. Deshrouding is a popular option to improve GPU cooling, and involves removing stock GPU cooler fans and replacing them with more efficient/quieter fans. My 2080 was a slim 2-slot model though, and deshrouding works best with a larger heatsink. I purchased an Arctic Accelero Xtreme 3 aftermarket cooler, and instead mounted that, and then deshrouded it. This involved (very scarily) popping off the stock heatsink, applying thermal pads and small heatsinks to individual GPU components, then applying thermal paste and mounting the main heatsink. Conveniently, the Accelero's heatsink is exactly the right dimensions such that it will sit directly on top of the 25 mm bottom case fans. These bottom fans are set to exhaust as well, which performs much better than the default cooler's intake.
+{{{external_image(ncase_m1/deshroud.jpg)}}}
+*** More Photos
+{{{external_image(ncase_m1/bottom_view.jpg)}}}
+{{{external_image(ncase_m1/bottom_view2.jpg)}}}
+{{{external_image(ncase_m1/ncase.jpg)}}}
+** Iris Keyboard Followup
+:PROPERTIES:
+:EXPORT_FILE_NAME: iris_followup
+:EXPORT_DATE: 2021-06-01
+:END:
+After a couple months of using the iris keyboard, I've stabilized on a hardware and software configuraiton that I'm very happy with.
+*** Keyboard Tenting
+There's many options for tenting an iris keyboard. The most common is to use a [[https://docs-gitbook.keeb.io/docs/iris-middle-layer][custom midlayer]], often with support for ergodox-style legs. Some people also use a 3d printed base to set the keyboard on top of. I wanted to have a steeper angle than ergodox, and also to have flexibility in amount of tenting. I also like the open look of the keyboard, so didn't want to use a mid layer.
+
+Initially, I simply picked up some display wire stands and they worked surprisingly well. These specific ones are Gibson Holders, the 1ab model, and were a few bucks on Amazon.
+{{{external_image(iris_followup/wire_stand.jpg)}}}
+
+Recently, I discovered a better solution. The Iris plates are joined via M2 standoffs with screws on either end. I simply bought some M2 male-female standoffs, and replaced the screws on the bottom side. Currently each of the 4 legs is using 2 x 25mm standoffs. I found that there was some very minor differences in length, causing the keyboard not to sit totally flat, but using a desk mat completely solves that, and also prevents scratching up my desk.
+{{{external_image(iris_followup/standoffs.jpg)}}}
+
+*** QMK Configuration
+QMK is the software I use to configure the Iris. My goal is to keep a configuration similar to a standard keyboard, but provide easier access to common programming symbols (e.g. brackets, math symbols). The Iris has 3 thumb keys per side, and as a heavy emacs user, I want alt and ctrl available on both sides, so the 2 thumb keys in the most similar positions to those keys on a standard keyboard are assigned to alt and ctrl. This leaves 1 thumb key remaining per hand. Since I only use the left hand for space bar, I made the remaining left thumb key space, and the remaining right thumb key enter (the Iris is 6 keys wide, so no traditional enter location).
+
+Besides simply assigning keys, QMK has 2 useful features we take advantage of. The first is the concept of layers, where keys have different behaviors depending on which "layer" the keyboard is currently in. (E.g. shift is a layer that produces upper case letters). Second, QMK allows different behaviors when a key is tapped vs. held down. I have a layer called ~RAISE~ that is reachable by holding down the enter key. In the raise layer, the left hand can type each of these symbols on or near home row position: ~+=-_[]{}\~`~. On the right hand, I have arrow keys available, as well as LED controls. The number keys also become the F keys in this layer.
+
+The Iris actually has a 4th thumb key available on both sides, above the other 3, though it's more awkward to reach. On the left, I've replaced this key with a rotary encoder, which adjusts volume, and pushing it down mutes/unmutes. On the right, the key toggles the keyboard LEDs.
+
+Here's the full keymap file:
+
+#+BEGIN_SRC bash
+#include QMK_KEYBOARD_H
+
+enum layers {
+  QWERTY,
+  RAISE
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  [QWERTY] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,          RGB_TOG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LCTL, KC_LALT, KC_SPC,           LT(RAISE, KC_ENT), KC_RALT, KC_RCTL
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [RAISE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______,  KC_PLUS, KC_EQL,  KC_MINS, KC_UNDS, _______,                            _______, _______, KC_UP,   _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_DEL,  KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,                            _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LGUI, KC_TILD,  KC_GRV, _______, _______, _______, _______,          RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    _______, _______, _______,                   _______, _______, _______
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  )
+};
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+}
+#+END_SRC
+
 ** Ethernet over Coaxial Cable via MoCA
 :PROPERTIES:
 :EXPORT_FILE_NAME: moca
@@ -730,7 +826,7 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
    cp external/lib/linux/* external/lib/linux-g++
    #+END_SRC
    If everything worked, the meshlab binary will be at src/distrib/meshlab
-** Dual-booting Ubuntu 18.04 with macOS (including full disk encryption)
+** Dual-booting Ubuntu 18.04 with macOS
    :PROPERTIES:
    :EXPORT_FILE_NAME: ubuntu-on-macbook-pro
    :EXPORT_DATE: 2018-06-08

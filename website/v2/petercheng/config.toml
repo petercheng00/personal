@@ -1,26 +1,32 @@
 baseURL = "https://petercheng.net/"
-languageCode = "en-us"
 title = "Peter Cheng"
-theme = "hyde-hyde"
+theme = "etch"
+languageCode = "en-US"
+enableInlineShortcodes = true
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 
 [params]
-    author = "Peter Cheng"
-    authorimage = "https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/me.jpg"
-    description = " "
-    highlightjs = true
-    highlightjsstyle = "zenburn"
-    highlightjslanguages = ["lisp"]
-[params.social]
-    github = "petercheng00"
-    linkedin = "petercheng00"
+    description = "Peter Cheng's Website"
+    dark = "auto"
+    highlight = true
 
-[[menu.main]]
-    name = "Posts"
-    weight = 100
+[menu]
+  [[menu.main]]
     identifier = "posts"
-    url = "/posts/"
-[[menu.main]]
-    name = "About"
+    name = "posts"
+    url = "/"
+    weight = 10
+
+  [[menu.main]]
     identifier = "about"
-    weight = 200
+    name = "about"
     url = "/about/"
+    weight = 20
+
+[permalinks]
+  posts = "/:title/"
+
+[markup.goldmark.render]
+  # Allows HTML in Markdown
+  unsafe = true
