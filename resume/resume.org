@@ -32,26 +32,28 @@ Peter Cheng
 \end{minipage}
 \begin{minipage}{1.4in}
 \footnotesize
-http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
+peter@pcheng.me \\ 503-901-8358
 \end{minipage}
 #+END_LATEX
 
 -----
 
 * Selected Work Experience
-** Iron Ox: Senior Computer Vision Engineer (2020 - present)
+** Iron Ox: Staff Computer Vision Engineer (2020 - present)
+- Built multi-camera imaging stations to capture thousands of plants in 2d and 3d
+- Used 3d plant scans in conjunction with environmental sensors to predict future plant growth for yield and sales forecasting
+- Augmented pest management procedures with automatic detection of pests and diseases
+- Managed all camera systems and calibration routines for cameras and lidars
 ** Matterport: Staff Computer Vision Engineer (2015 - 2020)
-- Parallax-tolerant image stitching enabling smartphone-based 3d capture
-- Neural network and infrastructure design on monocular depth prediction
-- Spherical and spatially-varying color processing (e.g. hdr tonemapping, color constancy)
-- Poisson, mesh-based, and voxel-based approaches for surface reconstruction
-- Sensor and lens modeling, calibration, and live correction for RGB and active depth systems
-- GPU-optimized color and depth capture and processing algorithms
+- Trained semantic segmentation models for spherical images (used in Matterport Cortex)
+- Developed significant portions of the image processing pipeline, making us competitive for real estate photography (e.g. demosaicing, hdr tonemapping, color constancy)
+- Implemented poisson and voxel-based approaches for surface reconstruction and completion
+- Sensor/lens modeling, calibration, and live correction for color and structured light systems
 - Systems-level design for Pro 1 and Pro 2, including camera architecture, wifi, gps, etc.
 ** Amazon Lab126: Emerging Technologies Team (2013 - 2014)
 - Machine learning models for motion gesture recognition on the Fire phone
-- Frameworks for quantifying accuracy and usability of 3d and gesture-based interfaces
-- 11 patents filed for machine learning and user interaction concepts
+- Wrote software and ran studies to quantify accuracy and usability of 3d and gesture-based interfaces
+# - 11 patents filed for machine learning and user interaction concepts
 # ** UC Berkeley Student Affairs IT: Lead Desktop Engineer (2011 - 2012)
 # - Hired and led a team to provide Tier 1-3 support for over a thousand campus employees
 # ** Arista Networks: Software Development Intern (2011)
@@ -62,7 +64,7 @@ http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
 * Education
 ** M.S. Computer Science, UC Berkeley (2012 - 2013)
 - GPA 3.889, High Honors
-** Management of Technology Certificate, Haas School of Business (2012)
+** Management of Technology Program, Haas School of Business (2012)
 - 1 year of MBA coursework alongside entrepreneurship projects
 ** B.S. Electrical Engineering and Computer Science, UC Berkeley (2009 - 2012)
 - GPA 3.835, High Honors
@@ -79,7 +81,7 @@ http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
 -----
 
 * Publications
-** Journal of Selected Topics in Signal Processing (2014)
+** IEEE Journal of Selected Topics in Signal Processing (2014)
 - Fast, Automated, Scalable Generation of Textured 3D Models of Indoor Environments
 ** SPIE Computational Imaging (2013)
 - Texture mapping 3D models of indoor environments with noisy camera poses
@@ -87,5 +89,5 @@ http://petercheng.net \\ petercheng00@gmail.com \\ 510-859-3225
 -----
 
 * Technical Skills
-- Languages: (Proficient) C++, Python, (Familiar) Java, Matlab
-- Libraries: OpenCV, OpenCL, Ceres, OpenNI, Video4Linux2, Keras
+- Languages: C++, Python
+- Frameworks/Libraries: OpenCV, PyTorch, ROS, OpenCL, Ceres.
