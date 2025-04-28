@@ -1,6 +1,9 @@
 /* Override theme to set height auto since we resize images. */
 main#content img {
     height: auto;
+    /* Get rid of this stuff so it doesn't affect gallery. */
+    max-width: 100%;
+    margin-left: 0;
 }
 
 /* Gallery is wider */
