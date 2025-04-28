@@ -754,16 +754,6 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
     To get to a command prompt, reboot the router and mash ~Ctrl-C~ a bunch as it starts up.
     Pretty much the only command I use is ~nvram erase~, which resets router settings, and has generally resolved any boot issues I've encountered. You can also apply and transfer new firmware over telnet for more serious problems, and do a whole bunch of other things, but I'll leave those for other sites to cover, at least until I cause more problems and need to figure those things out for myself.
 
-** Hungarian Matching Demo
-   :PROPERTIES:
-   :EXPORT_HUGO_BUNDLE: hungarian_matching
-   :EXPORT_FILE_NAME: index
-   :EXPORT_DATE: 2019-07-03
-   :END:
-   Back in 2013, as a class project, we built a javascript demo of the hungarian algorithm. The basic idea is that it's a polynomial-time method to obtain the optimal matching between 2 sets of objects (e.g. matching people to resources), where every pairing has some cost (or reward) associated with it. I had never used javascript before this project, and I never used it again afterwards, so no idea if the code itself is any good, but it was a fun project.
-
-<iframe width=1000 height=700 src=../../files/graphVisualizer/graphVisualizer.html></iframe>
-
 ** Building Meshlab from Source in Ubuntu
    :PROPERTIES:
    :EXPORT_HUGO_BUNDLE: meshlab_build
