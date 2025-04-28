@@ -1,0 +1,44 @@
+{{/* layouts/_default/_markup/render-image.html */}}
+
+{{/* Store the original destination (src) and alt text */}}
+{{ $src := .Destination }}
+{{ $alt := .Text }}
+{{ $title := .Title }}
+
+{{/* Default image processing parameters */}}
+{{ $processingParams := "800x q75" }} {{/* Max width 800px, 75 quality */}}
+
+{{/* Check if the source is an external URL (http/https) or starts with / (absolute path) */}}
+{{ if or (strings.HasPrefix $src "http") (strings.HasPrefix $src "//") (strings.HasPrefix $src "/") }}
+  {{/* It's an external or absolute link, just output a standard img tag */}}
+  <img src="{{ $src | safeURL }}" alt="{{ $alt }}" {{ with $title }} title="{{ . }}"{{ end }}>
+{{ else }}
+  {{/* It's a local image, likely in the page bundle */}}
+  {{/* Try to find the image resource within the current page's bundle */}}
+  {{/* We use strings.TrimPrefix to handle paths like "./image.jpg" */}}
+  {{ $image := .Page.Resources.GetMatch (strings.TrimPrefix "./" $src) }}
+
+  {{ if $image }}
+    {{/* Image resource found! Process it */}}
+    {{ $imageWebp := $image.Resize (print $processingParams " webp") }}
+    {{ $imageOrig := $image.Resize $processingParams }}
+
+    <picture>
+      <source srcset="{{ $imageWebp.RelPermalink }}" type="image/webp">
+      <source srcset="{{ $imageOrig.RelPermalink }}" type="{{ $image.MediaType }}">
+      <img src="{{ $imageOrig.RelPermalink }}"
+           width="{{ $imageOrig.Width }}"
+           height="{{ $imageOrig.Height }}"
+           alt="{{ $alt }}"
+           {{ with $title }} title="{{ . }}"{{ end }}
+           loading="lazy"> {{/* Add lazy loading for performance */}}
+    </picture>
+
+  {{ else }}
+    {{/* Image resource NOT found in bundle. Output standard img tag as fallback. */}}
+    {{/* This might happen if the image path is wrong or the image is missing. */}}
+    {{/* You might want to add a warning log here during development */}}
+    {{/* hugo.Warnf "Image resource not found for %q on page %q" $src .Page.File.Path */}}
+    <img src="{{ $src | safeURL }}" alt="{{ $alt }}" {{ with $title }} title="{{ . }}"{{ end }}>
+  {{ end }}
+{{ end }}

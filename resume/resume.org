@@ -39,7 +39,8 @@ peter@pcheng.me \\ 503-901-8358
 -----
 
 * Selected Work Experience
-** Iron Ox: Staff Computer Vision Engineer (2020 - present)
+** Zipline: Perception Engineer (2023 - Present)
+** Iron Ox: Staff Computer Vision Engineer (2020 - 2023)
 - Built multi-camera imaging stations to capture thousands of plants in 2d and 3d
 - Used 3d plant scans in conjunction with environmental sensors to predict future plant growth for yield and sales forecasting
 - Augmented pest management procedures with automatic detection of pests and diseases

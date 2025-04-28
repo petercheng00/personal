@@ -1,0 +1,33 @@
+{{/* layouts/shortcodes/photo-stream.html */}}
+
+{{/* --- Define the path within 'assets' where images are stored --- */}}
+{{/* Adjust "gallery_photos/" if you used a different folder name */}}
+{{ $galleryAssetPath := "gallery_photos/**.{jpg,jpeg,png,webp,gif}" }}
+
+{{/* --- Find images in the global 'assets' directory using the path pattern --- */}}
+{{ $images := resources.Match $galleryAssetPath }}
+
+{{/* Check if any images were found at that path */}}
+{{ if $images }}
+  <div class="photo-stream">
+    {{ range sort $images "Name" "desc" }}
+      {{/* --- Image Processing (remains the same) --- */}}
+      {{ $thumb := .Resize "x200 q85" }}
+      {{ $large := .Resize "1600x q85" }}
+
+      {{/* --- HTML Output (remains the same) --- */}}
+      <a href="{{ $large.RelPermalink }}"
+         class="glightbox"
+         data-gallery="gallery-main">
+        <img src="{{ $thumb.RelPermalink }}"
+             width="{{ $thumb.Width }}"
+             height="{{ $thumb.Height }}"
+             alt=""
+             loading="lazy">
+      </a>
+    {{ end }}
+  </div>
+{{ else }}
+  {{/* Output a helpful message if no images are found */}}
+  <p>No images found matching the pattern <code>{{ $galleryAssetPath }}</code> in the <code>assets</code> directory.</p>
+{{ end }}

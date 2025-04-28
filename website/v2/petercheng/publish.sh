@@ -3,9 +3,9 @@
 set -eux
 
 username=$1
-server=ssh.phx.nearlyfreespeech.net
+server=ssh.nyc1.nearlyfreespeech.net
 
-rm -rf public
+rm -rf public resources
 hugo
 # rsync is problematic on WSL (https://github.com/microsoft/WSL/issues/2138)
 # --whole-file is one workaround

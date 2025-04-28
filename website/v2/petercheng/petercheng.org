@@ -1,8 +1,6 @@
 #+HUGO_BASE_DIR: ./
 
 # These macros save on typing for linking to external files. Unfortunately the macros can't go inside the brackets, so we define the entire bracket syntax as a macro
-#+MACRO: external_link [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1][$2]]
-#+MACRO: external_image [[https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1][https://raw.githubusercontent.com/petercheng00/personal/master/website/v2/petercheng/external_files/$1]]
 #+MACRO: other_repo_link [[https://raw.githubusercontent.com/petercheng00/$1][$2]]
 #+MACRO: other_repo_image [[https://raw.githubusercontent.com/petercheng00/$1]]
 * Pages
@@ -11,47 +9,59 @@
   :END:
 ** About
    :PROPERTIES:
-   :EXPORT_FILE_NAME: about
+   :EXPORT_HUGO_BUNDLE: about
+   :EXPORT_FILE_NAME: index
    :EXPORT_HUGO_TYPE: about
    :END:
-   I'm a computer vision engineer in the San Francisco Bay Area. I'm currently at Iron Ox, where we're optimizing greenhouse farming to make quality produce more accessible. Previously, I spent 5 years at Matterport, making 3d technologies for capturing and visualizing 3d spaces available to everyday users. Before that, I worked at Amazon Lab126, focusing on 3d interfaces and interactions with mobile devices. I received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
+   I'm a computer vision engineer in the San Francisco Bay Area. I'm currently at Zipline, where I work on perception algorithms to enable safe and precise instant deliveries. Previously, I worked at Iron Ox and Matterport, where I focused on 3d scanning of plants and buildings, respectively.  Before that, I briefly worked at Amazon Lab126, and received my B.S. and M.S. at UC Berkeley, where I was a member of the Vision and Image Processing Lab.
 
    -----
 
    {{{other_repo_link(personal/master/resume/resume.pdf, Click here for a pdf version of my resume)}}}
    # We don't want the header of the resume org file to show up
    #+INCLUDE: "../../../resume/resume.org" :lines "38-"
+** Photos
+  :PROPERTIES:
+  :EXPORT_HUGO_BUNDLE: photos
+  :EXPORT_FILE_NAME: index
+  :EXPORT_HUGO_TYPE: photos
+  :END:
 
+  #+BEGIN_EXPORT hugo
+  {{< photo-stream >}}
+  #+END_EXPORT
 * Posts
   :PROPERTIES:
   :EXPORT_HUGO_SECTION: posts
   :END:
 ** NCASE M1 SFFPC Build
 :PROPERTIES:
-:EXPORT_FILE_NAME: ncase_m1
+:EXPORT_HUGO_BUNDLE: ncase_m1
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-08-15
 :END:
-{{{external_image(ncase_m1/desk.jpg)}}}
+[[file:assets/post_photos/ncase_m1/desk.jpg]]
 I recently built a small form-factor PC in the NCASE M1, which involved a bit of research and configuration to reach its final state. My old desktop PC was in a large and heavy 50 liter case, with most of the interior being empty space. The NCASE M1 by contrast, is 12 liters in volume, and still supports high end components with great airflow and thermals.
 *** Case Choice
 SFFPCs are starting to become more mainstream, but there's still a limited selection compared to larger cases, and they often come with much higher prices, long delivery times, and/or limited component compatibility. The NCASE M1 was originally crowdfunded back in 2013, and was a big part of defining the genre. Today, there's many cases that are comparable or better in many regards - the NR200, Dan A4, Sliger 550/560, and Formd T1 being some of the top contenders I considered. Beyond small size, I also prioritize low noise at idle, and ease of maintenance, so this ruled out both custom and aio water cooling loops. The NCASE M1 ended up as a top choice because while it's not the smallest, it has great component compatibility and cooling options, was easily available, and has numerous guides and tips on optimal configuration.
 *** Components
 I transferred over an EVGA RTX 2080 from my old machine, but everything else was new. Based on looking at others' recent builds, I ended up with this [[https://pcpartpicker.com/list/kxZZYg][parts list]].
 *** CPU/Case Cooling
-{{{external_image(ncase_m1/side_off.jpg)}}}
+[[file:assets/post_photos/ncase_m1/side_off.jpg]]
 The NCASE M1 supports a few different layout options, e.g. PSU orientation, optional side/bottom fans. Reddit user M1AF has an [[https://www.reddit.com/r/sffpc/comments/irlrg8/m1afs_ncase_m1_build_guide_c14s_and_deshroud/][amazing guide]] where he tried many configurations and recorded their impact on component thermals. Since the posting of that guide, new ideas have popped up in the sffpc community, including the "wedge" layout. In the wedge layout, the left side case fans and the CPU heatsink fan act as intake, and an extra fan, "wedged" in place by the PSU, exhausts air out the right side. The wedge fan requires the PSU oriented in a way that ordinarily would only allow 1 side fan, but some careful positioning and foregoing some of the screws still allows both to fit.
-{{{external_image(ncase_m1/top_view.jpg)}}}
+[[file:assets/post_photos/ncase_m1/top_view.jpg]]
 *** GPU Cooling
 For GPU cooling, I found the stock EVGA cooler to be quite loud and hot under load. Deshrouding is a popular option to improve GPU cooling, and involves removing stock GPU cooler fans and replacing them with more efficient/quieter fans. My 2080 was a slim 2-slot model though, and deshrouding works best with a larger heatsink. I purchased an Arctic Accelero Xtreme 3 aftermarket cooler, and instead mounted that, and then deshrouded it. This involved (very scarily) popping off the stock heatsink, applying thermal pads and small heatsinks to the smaller individual GPU components, then applying thermal paste and mounting the main heatsink. Conveniently, the Accelero's heatsink is exactly the right dimensions such that it will sit directly on top of the 25 mm bottom case fans. These bottom fans are set to exhaust as well, which performs much better than the default cooler's intake. With a 3-pin-to-4-pin converter, the GPU can control these case fans as well.
-{{{external_image(ncase_m1/deshroud.jpg)}}}
+[[file:assets/post_photos/ncase_m1/deshroud.jpg]]
 *** Performance
 With the GPU undervolted, and some tuned fan curves in the BIOS, the case is silent on idle, and still reasonable under full load. Since all the airflow is directed in one direction, dust isn't as much of a problem as with my old case either - plus the NCASE has convenient magnetic dust filters.
-{{{external_image(ncase_m1/bottom_view.jpg)}}}
-{{{external_image(ncase_m1/bottom_view2.jpg)}}}
-{{{external_image(ncase_m1/ncase.jpg)}}}
+[[file:assets/post_photos/ncase_m1/bottom_view.jpg]]
+[[file:assets/post_photos/ncase_m1/bottom_view2.jpg]]
+[[file:assets/post_photos/ncase_m1/ncase.jpg]]
 ** Iris Keyboard Followup
 :PROPERTIES:
-:EXPORT_FILE_NAME: iris_followup
+:EXPORT_HUGO_BUNDLE: iris_followup
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-06-01
 :END:
 After a couple months of using the iris keyboard, I've stabilized on a hardware and software configuraiton that I'm very happy with.
@@ -59,10 +69,10 @@ After a couple months of using the iris keyboard, I've stabilized on a hardware 
 There's many options for tenting an iris keyboard. The most common is to use a [[https://docs-gitbook.keeb.io/docs/iris-middle-layer][custom midlayer]], often with support for ergodox-style legs. Some people also use a 3d printed base to set the keyboard on top of. I wanted to have a steeper angle than ergodox, and also to have flexibility in amount of tenting. I also like the open look of the keyboard, so didn't want to use a mid layer.
 
 Initially, I simply picked up some display wire stands and they worked surprisingly well. These specific ones are Gibson Holders, the 1ab model, and were a few bucks on Amazon.
-{{{external_image(iris_followup/wire_stand.jpg)}}}
+[[file:assets/post_photos/iris_followup/wire_stand.jpg]]
 
 Recently, I discovered a better solution. The Iris plates are joined via M2 standoffs with screws on either end. I simply bought some M2 male-female standoffs, and replaced the screws on the bottom side. Currently each of the 4 legs is using 2 x 25mm standoffs. I found that there was some very minor differences in length, causing the keyboard not to sit totally flat, but using a desk mat completely solves that, and also prevents scratching up my desk.
-{{{external_image(iris_followup/standoffs.jpg)}}}
+[[file:assets/post_photos/iris_followup/standoffs.jpg]]
 
 *** QMK Configuration
 QMK is the software I use to configure the Iris. My goal is to keep a configuration similar to a standard keyboard, but provide easier access to common programming symbols (e.g. brackets, math symbols). The Iris has 3 thumb keys per side, and as a heavy emacs user, I want alt and ctrl available on both sides, so the 2 thumb keys in the most similar positions to those keys on a standard keyboard are assigned to alt and ctrl. This leaves 1 thumb key remaining per hand. Since I only use the left hand for space bar, I made the remaining left thumb key space, and the remaining right thumb key enter (the Iris is 6 keys wide, so no traditional enter location).
@@ -125,7 +135,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 ** Ethernet over Coaxial Cable via MoCA
 :PROPERTIES:
-:EXPORT_FILE_NAME: moca
+:EXPORT_HUGO_BUNDLE: moca
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-01-12
 :END:
 I recently used MoCA adapters to expand wifi coverage in a large house. MOCA allows me to pass an ethernet connection from my router into the house's coaxial cabling, and then place wireless access points at other coaxial terminals. In my mind, MOCA works better and is less well-known than mesh wifi and powerline, both of which I originally considered, so this post covers some basics on how it works.
@@ -148,9 +159,9 @@ Running ethernet through the house would have been a big project, and powerline 
  * (Maybe) [[https://www.amazon.com/gp/product/B07C53S78W][Coax installation tools]]. Some of the coax cables I wanted to use were unterminated, so I needed to add plugs. To make matters more complicated, my coax cables are RG6Q, which is less common and wider. Tools for RG59 and RG6 are cheaper, but this set of tools supports RG6Q and worked great for me.
 *** Installation
 Cable box, before:
-{{{external_image(moca/cables_before.jpg)}}}
+[[file:assets/post_photos/moca/cables_before.jpg]]
 Cable box, after:
-{{{external_image(moca/cables_after.jpg)}}}
+[[file:assets/post_photos/moca/cables_after.jpg]]
 1. Install your MoCA filter. This should be connected to the cable that runs between your house and the external world. If your house only has one splitter, it'll be the cable that's on the solitary side of the splitter.
 2. Replace your splitter, if applicable.
 3. At each MoCA adapter location, unplug any devices currently using the coaxial cabling. If using the goCoax adapters, connect those devices to the "TV" port of the adapter. Then, connect the "MoCA" port of the adapter to the wall. If using an adapter with only one port, you'll need a 2-way splitter, with the single side plugged into the wall.
@@ -161,10 +172,11 @@ Previously, our single wireless router was barely reaching parts of the house, e
 
 ** Ergonomic Split Keyboard Build (Iris Rev 4)
 :PROPERTIES:
-:EXPORT_FILE_NAME: iris_build
+:EXPORT_HUGO_BUNDLE: iris_build
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2020-09-12
 :END:
-{{{external_image(iris_build/finished.jpg)}}}
+[[file:assets/post_photos/iris_build/finished.jpg]]
 *** Keyboard Choice
 I'm making the move to a split ergonomic keyboard as a reponse to occasional wrist pain when working at a computer. Splitting the keyboard allows for much more freedom in wrist positions and angles, especially if the board is tented.
 
@@ -173,7 +185,7 @@ Some split boards simply take a standard keyboard layout and split it in half (e
 A common complaint of the ergodox is that its thumb keys are a stretch for many users to reach. [[https://jhelvy.shinyapps.io/splitkbcompare/][This website]] is an excellent way of comparing different keyboard layouts, and by printing out a few overlays, I found the Iris to be a good fit. Two other very strong reasons for me to pick the Iris were that it's a very popular board, with plenty of support and hardware availability, and also that its latest revision comes with all the components already soldered on (except switches), making it simple to build.
 *** Components
 The key decisions to make are which switches and which keycaps to use. I went with Aqua Zilents, as they seem highly recommended for tactility without too much noise. I also picked up some Tribosys 3203 lube to further reduce switch noise, and some Mill-Max 0305 sockets so switches could be replaced without (de)soldering. For the keycaps, I chose MDA Big Bang 2.0, which is one of the few keycap sets that is sculpted per-row in a manner appropriate for split keyboards.
-{{{external_image(iris_build/components.jpg)}}}
+[[file:assets/post_photos/iris_build/components.jpg]]
 The full list of parts:
  * MDA Big Bang 2.0 ortholinear keycaps
  * 65 x Aqua Zilent 62 g switches
@@ -187,27 +199,26 @@ The full list of parts:
 *** The Build
 [[https://docs.keeb.io/iris-rev3-build-guide/][A comprehensive build guide]] for the Iris is already available, but I learned a few things during the process that might be worth sharing.
  * While dedicated switch opening tools exist, I found tweezers work quite well, and significantly better than a single flat-head screwdriver.
-   {{{external_image(iris_build/opening.jpg)}}}
+   [[file:assets/post_photos/iris_build/opening.jpg]]
 
  * For the lubing process, I followed [[https://www.youtube.com/watch?v=qSgPKPoFo2k][this guide from Taeha Types]].
-   {{{external_image(iris_build/lubing.jpg)}}}
+   [[file:assets/post_photos/iris_build/lubing.jpg]]
 
  * Mill-Max sockets are designed for the thinner pins on most switches. The Zilents though, have one pin that is wider. With some force, they can be made to fit, but after I snapped one pin, I discovered two things that help.
-   {{{external_image(iris_build/pins.jpg)}}}
+   [[file:assets/post_photos/iris_build/pins.jpg]]
    A bit of sandpapering on the wide tips of the pins makes a large difference. It's hard to see in the image above, but the right edge of the wide pin on the right switch has been sanded off, making it easier to slide the Mill-Max socket on. I found that sanding just one side was enough.
-   {{{external_image(iris_build/millmax.jpg)}}}
+   [[file:assets/post_photos/iris_build/millmax.jpg]]
    Unless you want to spend a lot of time sanding, some amount of force is still usually needed. I found the most secure method to apply force without risk of bending the pins is to push down with thumbnails on the lip on opposite sides of the socket.
 
  * While Mill-Max sockets are supposed to be soldered in, I tested out the keyboard before soldering, and found that all the switches are working fine. Soldering is definitely more secure, especially since without solder, the PCB is just held up by friction. I don't have the best soldering setup though, so I plan to continue unsoldered unless any problems arise.
 
 *** Initial Impressions
 The biggest surprise for me was that my thumb position is actually different on the columnar layout vs. on a normal staggered keyboard. I had intended to use the middle thumb key for space bar, but I find the farthest one a better fit. The other surprise is that columnar layout is quite easy to get used to. After only 1 day, my typing is basically back up to speed for a-z keys. I'm still fiddling with the keymapping, and still need to figure out tenting hardware, but overall I'm quite happy typing on this board, and MDA + Zilents feel great to type on.
-{{{external_image(iris_build/finished2.jpg)}}}
-
+[[file:assets/post_photos/iris_build/finished2.jpg]]
 
 ** Understanding Stock Options
 :PROPERTIES:
-:EXPORT_FILE_NAME: stock_options
+:EXPORT_HUGO_BUNDLE: stock_options
 :EXPORT_DATE: 2020-04-04
 :END:
 *Disclaimer: this post contains my current best understanding of topics, I am not an expert and make no guarantees*
@@ -237,7 +248,8 @@ The biggest surprise for me was that my thumb position is actually different on 
 
 ** Literate Emacs Init with Org Babel
 :PROPERTIES:
-:EXPORT_FILE_NAME: emacs_init
+:EXPORT_HUGO_BUNDLE: emacs_init
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2020-02-29
 :END:
 Over the past few years, my emacs init files have gotten a bit out of hand. My once-cleanly-categorized files have started to blend together, and there's a fair amount of dead code, as I've made many significant changes to my emacs tools (e.g. I've switched static analyzers and terminals basically each year).
@@ -269,7 +281,8 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
 ** Mixed-Precision Neural Network Training with APEX
    :PROPERTIES:
-   :EXPORT_FILE_NAME: nvidia_apex
+   :EXPORT_HUGO_BUNDLE: nvidia_apex
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2020-02-21
    :END:
 
@@ -315,7 +328,8 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
 ** Staff Removal in PyTorch (Revisiting ICDAR 2013)
    :PROPERTIES:
-   :EXPORT_FILE_NAME: staff_removal
+   :EXPORT_HUGO_BUNDLE: staff_removal
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2020-02-20
    :END:
    2012 was a significant year for computer vision, as AlexNet smashed past records (and same-year competitors) on the ImageNet recognition challenge. In the following months and years, the field embraced CNN-based techniques, and a vast number of tasks and benchmarks saw major improvements in performance. Because of this, and thanks to the maturity of modern deep learning frameworks, it is quite often the case that pre-deep-learning challenges and benchmarks can be trivially surpassed, often with huge margins, simply by using basic out-of-the-box deep learning techniques.
@@ -323,7 +337,7 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 *** ICDAR Challenge
     Hosted in 2013, the goal of this challenge was to take as input images of sheet music (either binary or grayscale), and then output a binary mask of the sheet music elements, but without the staff lines. Here are some examples (grayscale input, binary input, target result):
 
-    {{{external_image(staff_removal/sample_data.jpg)}}}
+    [[file:assets/post_photos/staff_removal/sample_data.jpg]]
 
     Using grayscale input is clearly a harder problem, given the increased domain and noise. Both types of input are also subject to a variety of noise and geometric distortions, and the handwritten nature of the scores increases variance among samples.
 
@@ -331,7 +345,7 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
     From the [[https://hal.archives-ouvertes.fr/hal-00859333/document][published results]], we see that a variety of heuristics-based techniques were submitted. The top performers have very good F1-scores given binary input, or with low amounts of degradation, but results on grayscale images with higher degradation are not as good, with the best F1-scores a little over 70.
 
-    {{{external_image(staff_removal/submission_scores.jpg)}}}
+    [[file:assets/post_photos/staff_removal/submission_scores.jpg]]
 
     As an aside, you may be wondering why staff removal is a useful task at all. In the pre-deep-learning era, many OMR (optical music recognition) systems were built as pipelines of sequential heuristic-based algorithms. Cleaning up the staff as a preprocessing step was useful to simplify downstream steps. Now that end-to-end learning has become more powerful, staff removal as a discrete step will likely fall out of favor (though staves will probably continue to be identified as part of more general segmentation tasks).
 
@@ -340,11 +354,11 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
     Because the images are fairly high-resolution, using them directly is not feasible, at least not with my limited amount of GPU memory. We thus have 2 choices: either downsample the images, or operate on patches of images. Zooming in, we can see that some staff lines are only 1 pixel wide, so downsampling could lose some important data.
 
-    {{{external_image(staff_removal/zoom.jpg)}}}
+    [[file:assets/post_photos/staff_removal/zoom.jpg]]
 
     Also, identifying staff lines shouldn't require much spatial context - given this 512x512 patch, it's easy to see which pixels correspond to staff lines. In fact, we could likely go much lower than 512x512, though I have not tried.
 
-    {{{external_image(staff_removal/patch.jpg)}}}
+    [[file:assets/post_photos/staff_removal/patch.jpg]]
 
     We'll set up our data pipeline to extract patches from images, and classification will be performed one patch at a time. Here's what the data loader code looks like. Note the slightly awkward usage of RandomCrop's parameters passed to functional crop methods. Apparently this is [[https://github.com/pytorch/vision/issues/533][somewhat by design/the recommended way]].
 
@@ -382,7 +396,7 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 *** Network Choice
     The class of problem we are looking to solve is semantic segmentation, in which every pixel is assigned a label. This a very broadly studied area, with thousands of papers and network architectures. We'll use UNet, which is one of the earlier and simpler architectures, from 2015.
 
-    {{{external_image(staff_removal/unet_architecture.jpg)}}}
+    [[file:assets/post_photos/staff_removal/unet_architecture.jpg]]
 
     The basic idea, which is now extremely common, is to have a series of contraction layers followed by a series of expansion layers. The contraction layers accumulate spatial information into higher-level features, while the expansion layers spread that higher-level understanding back across pixels. Skip connections are used to preserve high-resolution detail across intermediate levels. Although there are many fantastic open-source implementations available, I decided to implement it myself, just to practice with pytorch and show how easy it is to build up these simpler network architectures.
 
@@ -527,7 +541,7 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
     Here are 2 inputs, followed by predictions and ground truths, where the first case is an "easy" sample, and the second has more noise. Interestingly, point noise as visible in the bottom sample is kept in the ground truth output, and our network learned to do the same. Our network is fooled by the crease in the lower-left corner though.
 
-    {{{external_image(staff_removal/result_examples.jpg)}}}
+    [[file:assets/post_photos/staff_removal/result_examples.jpg]]
 
     After running inference on the test set, we can compute our score using the test ground truth published after the competition. Recall that the top submissions in 2013 reached an F1 score around *0.72*. With our basic UNet and 10 minutes of training, we obtain an F1 score of *0.966* across all 2000 test images. Looking at just the 1000 test images with the highest levels of degradation, F1 score only drops to *0.959*.
 
@@ -535,7 +549,8 @@ The other major change I've made is a transition from the built-in ~package.el~ 
 
 ** Email Bomb
    :PROPERTIES:
-   :EXPORT_FILE_NAME: email_bomb
+   :EXPORT_HUGO_BUNDLE: email_bomb
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2019-09-29
    :END:
    {{{other_repo_image(mailBombAnalysis/master/email_rate.jpg)}}}
@@ -684,7 +699,8 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
 
 ** Graph Cuts on Markov Random Fields
    :PROPERTIES:
-   :EXPORT_FILE_NAME: graph_cuts
+   :EXPORT_HUGO_BUNDLE: graph_cuts
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2019-07-09
    :END:
    |            | Binary                                                                                                 | Multi-label                                                                                     |
@@ -717,19 +733,20 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
 
 ** Serial Access for R8000/AC3200 (and other) Routers
    :PROPERTIES:
-   :EXPORT_FILE_NAME: serial_router
+   :EXPORT_HUGO_BUNDLE: serial_router
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2019-07-04
    :END:
-   {{{external_image(serial_router/router5.jpg)}}}
+   [[file:assets/post_photos/serial_router/router5.jpg]]
    So you bricked your router. Or maybe you just want a more convenient way to manage and monitor firmware upgrades (wiping settings via command is a lot more pleasant than holding down power buttons). Either way, adding serial access is pretty easy for many routers. I first did this a couple years ago, but I had to do it again recently, so I documented the process here for my current router (Netgear R8000/AC3200). I've also since discovered that there are pretty good instructions on the [[https://wiki.dd-wrt.com/wiki/index.php/Serial_Recovery][dd-wrt wiki]] and [[https://www.myopenrouter.com/article/how-set-serial-console-netgear-r8000][myopenrouter]] as well.
 *** Tools
     The main thing you need is a setup that has usb on one end (for the computer), and standard serial pins (at least RX, TX, ground) on the other end. *Important:* the serial side needs to be at 3.3v, and usb operates at 5v, so make sure you have a level shifter in there somewhere. I believe there's some cables that have this all in one package, but I ended up using [[https://smile.amazon.com/OSEPP-Breakout-Board-Arduino-Compatible/dp/B007JBSSGQ][this breakout board]] which I purchased from Fry's. Anything that mentions USB to TTL, and 3.3V should work fine though. If you use a board like this you'll also need some wires and possibly a soldering iron (though tape or extra hands work just fine for a temporary unbricking setup).
 *** Getting to the pins (R8000 specific)
-    1. Remove the torx screws on the bottom and back, including {{{external_link(serial_router/router1.jpg, the one hidden under the bottom label)}}} (no turning back after the label is broken, if you care about warranty!)
-    2. Flip the router over, remove the bottom cover, and detach the antennas (6 colored wires), which {{{external_link(serial_router/router2.jpg, should look something like this)}}}.
-    3. There's still a ribbon cable attaching the main board to the rest of the router, but it's long enough that the board can be flipped over without disconnecting it, {{{external_link(serial_router/router3.jpg, like this)}}}. The serial pins are now accessible (top left in the prior image).
+    1. Remove the torx screws on the bottom and back, including [[file:images/serial_router/router1.jpg][the one hidden under the bottom label]] (no turning back after the label is broken, if you care about warranty!)
+    2. Flip the router over, remove the bottom cover, and detach the antennas (6 colored wires), which [[file:images/serial_router/router2.jpg][should look something like this]].
+    3. There's still a ribbon cable attaching the main board to the rest of the router, but it's long enough that the board can be flipped over without disconnecting it, [[file:images/serial_router/router3.jpg][like this]]. The serial pins are now accessible (top left in the prior image).
 *** Pin layout
-    {{{external_image(serial_router/router4.jpg)}}}
+    [[file:assets/post_photos/serial_router/router4.jpg]]
     In the above image, the pin with the red wire attached is RX, orange is TX, and yellow is ground. The 4th pin is not needed here. If you are using a breakout board like me, keep in mind that RX on the router should go to TX on the board, and vice versa. The image at the top of this post shows my final setup, complete with drilled hole for semi-permanent access (note the red and orange wires swapping near the breakout board).
 *** Computer stuff
     On the computer end, any serial program like PuTTY or minicom will work. Find and select the usb device via something like device manager or dmesg, set baud rate to 115200, and everything else should pretty much be defaults. With everything connected, you should be able to see a stream of text output whenever the router boots. If you don't, you can verify your setup by disconnecting from the router and shorting between RX and TX, and making sure any typed text is echoed back.
@@ -739,7 +756,8 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
 
 ** Hungarian Matching Demo
    :PROPERTIES:
-   :EXPORT_FILE_NAME: hungarian_matching
+   :EXPORT_HUGO_BUNDLE: hungarian_matching
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2019-07-03
    :END:
    Back in 2013, as a class project, we built a javascript demo of the hungarian algorithm. The basic idea is that it's a polynomial-time method to obtain the optimal matching between 2 sets of objects (e.g. matching people to resources), where every pairing has some cost (or reward) associated with it. I had never used javascript before this project, and I never used it again afterwards, so no idea if the code itself is any good, but it was a fun project.
@@ -748,7 +766,8 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
 
 ** Building Meshlab from Source in Ubuntu
    :PROPERTIES:
-   :EXPORT_FILE_NAME: meshlab-build
+   :EXPORT_HUGO_BUNDLE: meshlab_build
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2018-06-16
    :END:
    Every time I build Meshlab, it's always a little more work than it really should be. So here's my notes from my most recent build (June 2018, Ubuntu 18.04)
@@ -829,7 +848,8 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
    If everything worked, the meshlab binary will be at src/distrib/meshlab
 ** Dual-booting Ubuntu 18.04 with macOS
    :PROPERTIES:
-   :EXPORT_FILE_NAME: ubuntu-on-macbook-pro
+   :EXPORT_HUGO_BUNDLE: ubuntu_on_macbook_pro
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2018-06-08
    :END:
 *** Introduction
@@ -869,7 +889,8 @@ Although the attack occurred many weeks ago, I'm still an unwitting member of th
      Strangely, I again had the installer repeatedly crash on me while "copying files". This time it was not due to any grub conflicts that I could find. As an unsatisfying workaround, I realized that it would only crash after I entered my account/login details. So I simply stayed on that screen until the activity led on my usb drive stopped flashing. I then continued forward, allowed it to crash, and then moved on with the post-installation instructions, and so far things are working.
 ** Publishing a Website from Emacs and Hugo
    :PROPERTIES:
-   :EXPORT_FILE_NAME: website-v2-setup
+   :EXPORT_HUGO_BUNDLE: website_v2_setup
+   :EXPORT_FILE_NAME: index
    :EXPORT_DATE: 2018-06-04
    :END:
 *** Introduction

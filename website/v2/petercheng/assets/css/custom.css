@@ -1,0 +1,54 @@
+/* Override theme to set height auto since we resize images. */
+main#content img {
+    height: auto;
+}
+
+/* Gallery is wider */
+body.page-type-photos {
+    width: auto;
+    max-width: 1400px;
+}
+
+/* Apply fixed height to gallery items, overriding the general 'auto' rule */
+.photo-stream a,
+.photo-stream img {
+    height: 200px !important; /* Default height for gallery thumbs, use !important */
+}
+
+/* Apply mobile height override */
+@media (max-width: 770px) { /* Adjust breakpoint as needed */
+  .photo-stream a,
+  .photo-stream img {
+    height: 100px !important; /* Override height for mobile, use !important */
+  }
+}
+
+/* --- Other styles for gallery elements --- */
+/* (These don't conflict with height: auto, so don't need !important usually) */
+.photo-stream a {
+  display: block;
+  line-height: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.photo-stream img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+  vertical-align: top;
+  border: none;
+}
+
+/* --- Container Styles --- */
+.photo-stream {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 5px 0;
+}
